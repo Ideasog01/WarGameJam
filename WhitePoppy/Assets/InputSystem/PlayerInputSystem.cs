@@ -116,6 +116,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""088c1d45-d959-4050-bbf3-febf8a1c5e73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -424,6 +433,17 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56645be0-e655-4aff-9e82-6e308638d14a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1021,6 +1041,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_Player_CrouchStart = m_Player.FindAction("CrouchStart", throwIfNotFound: true);
         m_Player_CrouchFinish = m_Player.FindAction("CrouchFinish", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1102,6 +1123,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CrouchStart;
     private readonly InputAction m_Player_CrouchFinish;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Reload;
     public struct PlayerActions
     {
         private @PlayerInputSystem m_Wrapper;
@@ -1116,6 +1138,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public InputAction @CrouchStart => m_Wrapper.m_Player_CrouchStart;
         public InputAction @CrouchFinish => m_Wrapper.m_Player_CrouchFinish;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1155,6 +1178,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Reload.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1189,6 +1215,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -1355,6 +1384,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnCrouchStart(InputAction.CallbackContext context);
         void OnCrouchFinish(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

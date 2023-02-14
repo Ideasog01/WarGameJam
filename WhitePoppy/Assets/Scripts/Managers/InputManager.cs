@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    [SerializeField]
+    private bool soldierExists;
 
     private static InputManager instance;
 
@@ -12,7 +14,8 @@ public class InputManager : MonoBehaviour
     private bool isSprinting = false;
     private bool isCrouching = false;
 
-    private BaseCharacter _baseCharacter;
+    private PlayerCharacter _playerCharacter;
+    private SoldierCharacter _soldierCharacter;
     private ItemDisplay _itemDisplay;
 
     public static InputManager Instance
@@ -36,7 +39,13 @@ public class InputManager : MonoBehaviour
             instance = this;
         }
 
-        _baseCharacter = GameObject.Find("Player").GetComponent<BaseCharacter>();
+        _playerCharacter = GameObject.Find("Player").GetComponent<PlayerCharacter>();
+
+        if(soldierExists)
+        {
+            _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+        }
+        
         _itemDisplay = this.GetComponent<ItemDisplay>();
 
         controls = new PlayerInputSystem();
@@ -45,11 +54,18 @@ public class InputManager : MonoBehaviour
 
     private void InitialiseInput()
     {
-        controls.Player.SprintStart.performed += ctx => SprintPressed();
-        controls.Player.SprintFinish.performed += ctx => SprintReleased();
-        controls.Player.CrouchStart.performed += ctx => CrouchPressed();
-        controls.Player.CrouchFinish.performed += ctx => CrouchReleased();
-        controls.Player.Interact.performed += ctx => _baseCharacter.Interact();
+        controls.Player.Interact.performed += ctx => _playerCharacter.Interact();
+
+        if(soldierExists)
+        {
+            controls.Player.SprintStart.performed += ctx => SprintPressed();
+            controls.Player.SprintFinish.performed += ctx => SprintReleased();
+            controls.Player.CrouchStart.performed += ctx => CrouchPressed();
+            controls.Player.CrouchFinish.performed += ctx => CrouchReleased();
+
+            controls.Player.Fire.performed += ctx => _soldierCharacter.Fire();
+            controls.Player.Reload.performed += ctx => _soldierCharacter.Reload();
+        }
     }
 
     private void OnEnable()
