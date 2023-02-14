@@ -83,7 +83,7 @@ namespace StarterAssets
         [SerializeField]
         private float crouchSpeed = 1.0f;
 		private float targetSpeed;
-        public bool isMoving = true;
+        public static bool isMoving = true;
         public bool isCarrying = false;
 
         private bool IsCurrentDeviceMouse
@@ -134,7 +134,10 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+			if(isMoving)
+			{
+                CameraRotation();
+            }
 		}
 
 		private void GroundedCheck()
