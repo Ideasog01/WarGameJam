@@ -7,9 +7,7 @@ public class BaseCharacter : MonoBehaviour
 {
     #region Variables
 
-
     public static bool disableMovement;
-    public static InteractItem interactItem;
 
     private CharacterController controller;
     private Vector3 playerVelocity;
@@ -93,20 +91,5 @@ public class BaseCharacter : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
-    }
-
-    public void Interact()
-    {
-        if(interactItem != null)
-        {
-            if(interactItem.TryGetComponent<Letter>(out Letter letter))
-            {
-                letter.InteractLetter();
-            }
-            else if(interactItem.TryGetComponent<Item>(out Item item))
-            {
-                item.InteractItem();
-            }
-        }
     }
 }
