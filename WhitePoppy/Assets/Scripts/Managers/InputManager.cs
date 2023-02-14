@@ -1,48 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    public static Vector2 movementInput;
 
-    public static Vector2 mouseInput;
+    private static InputManager instance;
 
-    private PlayerInput _playerInput;
+    //For the player only
+    private bool isSprinting = false;
+    private bool isCrouching = false;
+
+    private BaseCharacter _baseCharacter;
+
+    public static InputManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
+    private PlayerInputSystem controls;
 
     private void Awake()
     {
-        _playerInput = new PlayerInput();
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
 
+        _baseCharacter = GameObject.Find("Player").GetComponent<BaseCharacter>();
+
+        controls = new PlayerInputSystem();
         InitialiseInput();
     }
 
     private void InitialiseInput()
     {
-        //Assign input actions here. e.g _playerInput.Gameplay.Jump.performer += ctx => Jump();
-    }
-
-    private void Update()
-    {
-        AssignUpdateInput();
-    }
-
-    private void AssignUpdateInput()
-    {
-        movementInput = _playerInput.Gameplay.Movement.ReadValue<Vector2>();
-        mouseInput = _playerInput.Gameplay.MouseLook.ReadValue<Vector2>();
-
-        Debug.Log(movementInput);
-        Debug.Log(mouseInput);
+        controls.Player.SprintStart.performed += ctx => SprintPressed();
+        controls.Player.SprintFinish.performed += ctx => SprintReleased();
+        controls.Player.CrouchStart.performed += ctx => CrouchPressed();
+        controls.Player.CrouchFinish.performed += ctx => CrouchReleased();
+        controls.Player.Interact.performed += ctx => _baseCharacter.Interact();
     }
 
     private void OnEnable()
     {
-        _playerInput.Enable();
+        controls.Enable();
     }
 
     private void OnDisable()
     {
-        _playerInput.Disable();
+        controls.Disable();
     }
+
+    #region Player Movement
+    public Vector2 GetPlayerMovement()
+    {
+        return controls.Player.Move.ReadValue<Vector2>();
+    }
+
+    public Vector2 GetMouseDelta()
+    {
+        return controls.Player.Look.ReadValue<Vector2>();
+    }
+
+    public bool PlayerJump()
+    {
+        return controls.Player.Jump.triggered;
+    }
+
+    #region Sprinting
+    public bool IsSprinting()
+    {
+        return isSprinting;
+    }
+
+    private void SprintPressed()
+    {
+        isSprinting = true;
+    }
+
+    private void SprintReleased()
+    {
+        isSprinting = false;
+    }
+    #endregion
+
+    #region Crouching
+    public bool IsCrouching()
+    {
+        return isCrouching;
+    }
+
+    private void CrouchPressed()
+    {
+        isCrouching = true;
+    }
+
+    private void CrouchReleased()
+    {
+        isCrouching = false;
+    }
+    #endregion
+    #endregion
 }
