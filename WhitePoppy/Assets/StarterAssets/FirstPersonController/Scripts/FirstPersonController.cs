@@ -74,7 +74,19 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
-		private bool IsCurrentDeviceMouse
+
+
+        /// <summary>
+        ///  NEW SECTION
+        /// </summary>
+        /// 
+        [SerializeField]
+        private float crouchSpeed = 1.0f;
+		private float targetSpeed;
+        public bool isMoving = true;
+        public bool isCarrying = false;
+
+        private bool IsCurrentDeviceMouse
 		{
 			get
 			{
@@ -112,9 +124,12 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
-			GroundedCheck();
-			Move();
+			if (isMoving)
+			{
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
 		}
 
 		private void LateUpdate()
@@ -154,7 +169,16 @@ namespace StarterAssets
 		private void Move()
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
-			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			//float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+
+			if (_input.sprint && !isCarrying)
+				targetSpeed = SprintSpeed;
+			else if (_input.crouch && !isCarrying)
+				targetSpeed = crouchSpeed;
+			else if (isCarrying)
+				targetSpeed = MoveSpeed * 0.6f;
+			else
+				targetSpeed = MoveSpeed;
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CameraBlend
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: PlayerCamera
+  - m_From: PlayerFollowCamera
     m_To: PickCamera
     m_Blend:
       m_Style: 1
@@ -43,7 +43,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 0
   - m_From: PickCamera
-    m_To: PlayerCamera
+    m_To: PlayerFollowCamera
     m_Blend:
       m_Style: 1
       m_Time: 1
