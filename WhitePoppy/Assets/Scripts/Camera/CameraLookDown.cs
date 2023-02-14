@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using StarterAssets;
 
 public class CameraLookDown : MonoBehaviour
 {
@@ -18,21 +19,21 @@ public class CameraLookDown : MonoBehaviour
     //Ignore the repeatitive code :D 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<BaseCharacter>().isCarrying)
+        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<FirstPersonController>().isCarrying)
         {
             player = other.gameObject;
-            player.gameObject.GetComponent<BaseCharacter>().isMoving = false;
-            player.gameObject.GetComponent<BaseCharacter>().isCarrying = true;
+            FirstPersonController.isMoving = false;
+            player.gameObject.GetComponent<FirstPersonController>().isCarrying = true;
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDown());
 
         }
-        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<BaseCharacter>().isCarrying)
+        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying)
         {
             player = other.gameObject;
-            player.gameObject.GetComponent<BaseCharacter>().isMoving = false;
-            player.gameObject.GetComponent<BaseCharacter>().isCarrying = false;
+            FirstPersonController.isMoving = false;
+            player.gameObject.GetComponent<FirstPersonController>().isCarrying = false;
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDownDrop());
@@ -45,7 +46,7 @@ public class CameraLookDown : MonoBehaviour
         yield return new WaitForSeconds(3f);
         droppedObject.SetActive(false);
         animator.Play("MainCamera");
-        player.gameObject.GetComponent<BaseCharacter>().isMoving = true;
+        FirstPersonController.isMoving = true;
         Destroy(this.gameObject);
     }
 
@@ -56,7 +57,7 @@ public class CameraLookDown : MonoBehaviour
         if (droppedObject != null)
             droppedObject.SetActive(true);
         animator.Play("MainCamera");
-        player.gameObject.GetComponent<BaseCharacter>().isMoving = true;
+        FirstPersonController.isMoving = true;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
     }
 }
