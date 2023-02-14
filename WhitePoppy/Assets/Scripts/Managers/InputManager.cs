@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private bool isCrouching = false;
 
     private BaseCharacter _baseCharacter;
+    private ItemDisplay _itemDisplay;
 
     public static InputManager Instance
     {
@@ -36,6 +37,7 @@ public class InputManager : MonoBehaviour
         }
 
         _baseCharacter = GameObject.Find("Player").GetComponent<BaseCharacter>();
+        _itemDisplay = this.GetComponent<ItemDisplay>();
 
         controls = new PlayerInputSystem();
         InitialiseInput();
