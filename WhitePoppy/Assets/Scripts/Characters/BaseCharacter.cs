@@ -105,7 +105,7 @@ public class BaseCharacter : MonoBehaviour
             }
             else if(interactItem.TryGetComponent<Item>(out Item item))
             {
-                
+                item.InteractItem();
             }
         }
     }
