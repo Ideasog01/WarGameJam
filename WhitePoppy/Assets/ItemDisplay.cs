@@ -61,6 +61,8 @@ public class ItemDisplay : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+
+        PlayerInterface.DisplayInteractButton(true);
     }
 
     private void Update()
