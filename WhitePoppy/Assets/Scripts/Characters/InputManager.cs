@@ -106,4 +106,11 @@ public class InputManager : MonoBehaviour
     }
     #endregion
     #endregion
+
+    #region Interact
+    public bool PlayerInteract()
+    {
+        return controls.Player.Interact.triggered;
+    }
+    #endregion
 }
