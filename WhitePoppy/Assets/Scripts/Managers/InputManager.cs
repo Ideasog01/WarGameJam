@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour
     private bool isSprinting = false;
     private bool isCrouching = false;
 
+    private BaseCharacter _baseCharacter;
+
     public static InputManager Instance
     {
         get
@@ -33,7 +35,8 @@ public class InputManager : MonoBehaviour
             instance = this;
         }
 
-        
+        _baseCharacter = GameObject.Find("Player").GetComponent<BaseCharacter>();
+
         controls = new PlayerInputSystem();
         InitialiseInput();
     }
@@ -44,6 +47,7 @@ public class InputManager : MonoBehaviour
         controls.Player.SprintFinish.performed += ctx => SprintReleased();
         controls.Player.CrouchStart.performed += ctx => CrouchPressed();
         controls.Player.CrouchFinish.performed += ctx => CrouchReleased();
+        controls.Player.Interact.performed += ctx => _baseCharacter.Interact();
     }
 
     private void OnEnable()

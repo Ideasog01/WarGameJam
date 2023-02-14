@@ -8,7 +8,8 @@ public class InteractItem : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-
+            BaseCharacter.interactItem = this;
+            PlayerInterface.DisplayInteractButton(true);
         }
     }
 
@@ -16,7 +17,11 @@ public class InteractItem : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-
+            if(BaseCharacter.interactItem == this)
+            {
+                BaseCharacter.interactItem = null;
+                PlayerInterface.DisplayInteractButton(false);
+            }
         }
     }
 }
