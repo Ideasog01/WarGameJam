@@ -11,7 +11,7 @@ public class SoldierCharacter : PlayerCharacter
     private Transform spawnPos;
 
     [SerializeField]
-    private Animator rifleAnimator;
+    private Animator playerAnimator;
 
     [SerializeField]
     private float projectileMovementSpeed;
@@ -49,15 +49,15 @@ public class SoldierCharacter : PlayerCharacter
             _spawnManager.SpawnProjectile(projectilePrefab, spawnPos.position, spawnPos.eulerAngles, projectileMovementSpeed, false, projectileDuration);
             _ammo--;
             StartCoroutine(FireCooldown());
-            rifleAnimator.SetTrigger("fire");
+            playerAnimator.SetTrigger("fire");
         }
     }
 
     public void Reload()
     {
-        if(!_isReloading && !_fireDisabled)
+        if(!_isReloading && !_fireDisabled && _ammo < maxAmmo)
         {
-            rifleAnimator.SetTrigger("reload");
+            playerAnimator.SetTrigger("reload");
             _ammo = 0;
             _isReloading = true;
             StartCoroutine(ReloadDelay());

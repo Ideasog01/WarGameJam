@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "8a0f1677-ff0a-4ffd-bdc8-275b5c1a4df2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "088c1d45-d959-4050-bbf3-febf8a1c5e73",
@@ -100,34 +91,23 @@
                 },
                 {
                     "name": "",
-                    "id": "9c9170cb-e1ec-4dd8-a325-88e591c4deff",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "259d708f-3361-4a58-86e1-0de35e75787a",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "56645be0-e655-4aff-9e82-6e308638d14a",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "574e4b19-975d-4a67-8626-a98c90b6557a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
