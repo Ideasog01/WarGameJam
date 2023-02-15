@@ -26,6 +26,12 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private Animator gameOverAnimator;
 
+    [SerializeField]
+    private Animator transitionAnimator;
+
+    [SerializeField]
+    private bool fadeIn;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
@@ -34,6 +40,14 @@ public class PlayerInterface : MonoBehaviour
     {
         interactButton = GameObject.Find("InteractButton");
         interactButton.SetActive(false);
+    }
+
+    private void Start()
+    {
+        if(fadeIn)
+        {
+            Transition(false);
+        }
     }
 
     public void DisplayLetter(string date, string addressee, string content, string sender, GameObject meshObj)
@@ -98,5 +112,17 @@ public class PlayerInterface : MonoBehaviour
         gameOverAnimator.gameObject.SetActive(true);
         gameOverAnimator.SetTrigger("trigger");
         GameManager.gameInProgress = false;
+    }
+
+    public void Transition(bool display)
+    {
+        if(display)
+        {
+            transitionAnimator.SetTrigger("fadeIn");
+        }
+        else
+        {
+            transitionAnimator.SetTrigger("fadeOut");
+        }
     }
 }
