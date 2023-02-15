@@ -81,7 +81,20 @@ public class DialogueManager : MonoBehaviour
     public void DisplayDialogue()
     {
         characterNameText.text = _currentDialogue.CharacterName;
-        dialogueContentText.text = _currentDialogue.DialogueContent[_dialogueIndex];
+        StartCoroutine(TypeSentence());
+    }
+
+    private IEnumerator TypeSentence()
+    {
+        dialogueContentText.text = "";
+
+        string sentence = _currentDialogue.DialogueContent[_dialogueIndex];
+
+        foreach(char character in sentence.ToCharArray())
+        {
+            dialogueContentText.text += character;
+            yield return new WaitForSeconds(0.02f);
+        }
     }
 
     public void EndDialogue()
