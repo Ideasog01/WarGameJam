@@ -24,6 +24,8 @@ public class InputManager : MonoBehaviour
 
     private PlayerInteract _playerInteract;
 
+    private SoldierCharacter _soldierCharacter;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -36,6 +38,7 @@ public class InputManager : MonoBehaviour
         }
 
         _playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
+        _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
 
         controls = new PlayerInputSystem();
         InitialiseInput();
@@ -44,6 +47,8 @@ public class InputManager : MonoBehaviour
     private void InitialiseInput()
     {
         controls.Player.Interact.performed += ctx => _playerInteract.Interact();
+        controls.Player.Fire.performed += ctx => _soldierCharacter.Fire();
+        controls.Player.Reload.performed += ctx => _soldierCharacter.Reload();
     }
 
     private void OnEnable()
