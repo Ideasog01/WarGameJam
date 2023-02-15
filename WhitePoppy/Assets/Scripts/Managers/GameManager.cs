@@ -36,4 +36,14 @@ public class GameManager : MonoBehaviour
         cameraBrain.enabled = active;
         playerController.GetComponent<FirstPersonController>().enabled = active;
     }
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
