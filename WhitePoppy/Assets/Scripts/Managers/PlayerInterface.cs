@@ -20,6 +20,12 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI letterSender;
 
+    [SerializeField]
+    private GameObject[] damageScreenArray;
+
+    [SerializeField]
+    private Animator gameOverAnimator;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
@@ -55,10 +61,42 @@ public class PlayerInterface : MonoBehaviour
         letterMesh.SetActive(true);
         letterMesh = null;
         DisplayInteractButton(true);
+        SoldierCharacter.disableCombatMechanics = false;
     }
 
     public static void DisplayInteractButton(bool active)
     {
         interactButton.SetActive(active);
+    }
+
+    public void UpdateDamageScreen(int health)
+    {
+        if(health > 60 && health < 80)
+        {
+            damageScreenArray[0].SetActive(true);
+            damageScreenArray[1].SetActive(false);
+            damageScreenArray[2].SetActive(false);
+        }
+        
+        if(health <= 60 && health > 30)
+        {
+            damageScreenArray[0].SetActive(true);
+            damageScreenArray[1].SetActive(true);
+            damageScreenArray[2].SetActive(false);
+        }
+        
+        if(health <= 30)
+        {
+            damageScreenArray[0].SetActive(true);
+            damageScreenArray[1].SetActive(true);
+            damageScreenArray[2].SetActive(true);
+        }
+    }
+
+    public void DisplayGameOverScreen()
+    {
+        gameOverAnimator.gameObject.SetActive(true);
+        gameOverAnimator.SetTrigger("trigger");
+        GameManager.gameInProgress = false;
     }
 }

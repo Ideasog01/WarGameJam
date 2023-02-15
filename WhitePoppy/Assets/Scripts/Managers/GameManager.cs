@@ -1,4 +1,5 @@
 using Cinemachine;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static InteractItem interactItem;
 
     public static SoldierCharacter playerController;
+
+    public static bool gameInProgress = true;
 
     [SerializeField]
     private bool combatScene = true;
@@ -31,5 +34,6 @@ public class GameManager : MonoBehaviour
     public static void EnableCamera(bool active)
     {
         cameraBrain.enabled = active;
+        playerController.GetComponent<FirstPersonController>().enabled = active;
     }
 }

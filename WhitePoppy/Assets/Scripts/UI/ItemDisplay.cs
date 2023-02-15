@@ -23,6 +23,9 @@ public class ItemDisplay : MonoBehaviour
     private TextMeshProUGUI itemDescriptionText;
 
     [SerializeField]
+    private GameObject crossHair;
+
+    [SerializeField]
     private float itemRotationSpeed = 5;
 
     private GameObject _itemMesh;
@@ -48,6 +51,8 @@ public class ItemDisplay : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        crossHair.SetActive(false);
     }
 
     public void ExitItem()
@@ -64,6 +69,9 @@ public class ItemDisplay : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
 
         PlayerInterface.DisplayInteractButton(true);
+        SoldierCharacter.disableCombatMechanics = false;
+
+        crossHair.SetActive(true);
     }
 
     private void Update()

@@ -13,10 +13,12 @@ public class PlayerInteract : MonoBehaviour
             if (interactItem.TryGetComponent<Letter>(out Letter letter))
             {
                 letter.InteractLetter();
+                SoldierCharacter.disableCombatMechanics = true;
             }
             else if (interactItem.TryGetComponent<Item>(out Item item))
             {
                 item.InteractItem();
+                SoldierCharacter.disableCombatMechanics = true;
             }
         }
     }
