@@ -8,6 +8,9 @@ public class SoldierCharacter : BaseCharacter
 
     public static bool disableCombatMechanics;
 
+    [SerializeField]
+    private GameObject characterMesh;
+
     private PlayerInterface _playerInterface;
 
     private void Start()
@@ -19,7 +22,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void Fire()
     {
-        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics)
+        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf)
         {
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, Vector3.zero, ProjectileMovementSpeed, false, ProjectileDuration, ProjectileDamage);
             Ammo--;
@@ -30,7 +33,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void Reload()
     {
-        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics)
+        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf)
         {
             CharacterAnimator.SetTrigger("reload");
             Ammo = 0;
@@ -61,9 +64,13 @@ public class SoldierCharacter : BaseCharacter
     public void OnPlayerDeath()
     {
         _playerInterface.DisplayGameOverScreen();
-        //CharacterAnimator.SetBool("isDead", true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.EnableCamera(false);
+    }
+
+    public void ToggleRifle()
+    {
+        characterMesh.SetActive(!characterMesh.activeSelf);
     }
 }

@@ -1101,6 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9c32a2d36fe564b8b6953f8605e70b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatScene: 1
 --- !u!114 &616106606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17948,6 +17949,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  characterMesh: {fileID: 7388800708504456191}
 --- !u!136 &5885216829670671798
 CapsuleCollider:
   m_ObjectHideFlags: 0
