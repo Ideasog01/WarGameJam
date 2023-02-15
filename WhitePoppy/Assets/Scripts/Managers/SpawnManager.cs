@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField]
+    private Transform aimTarget;
+
     private List<ProjectileController> _projectileList = new List<ProjectileController>();
 
-    public void SpawnProjectile(Transform prefab, Vector3 position, Vector3 rotation, float projectileSpeed, bool isEnemy, float duration)
+    public void SpawnProjectile(Transform prefab, Vector3 position, float projectileSpeed, bool isEnemy, float duration, int damage)
     {
         bool projectileFound = false;
 
@@ -16,8 +19,9 @@ public class SpawnManager : MonoBehaviour
             {
                 obj.gameObject.SetActive(true);
                 obj.transform.position = position;
-                obj.transform.eulerAngles = rotation;
-                obj.ResetProjectile(projectileSpeed, isEnemy, duration);
+                obj.transform.eulerAngles = Vector3.zero;
+                obj.transform.LookAt(aimTarget);
+                obj.ResetProjectile(projectileSpeed, isEnemy, duration, damage);
                 projectileFound = true;
                 break;
             }
@@ -25,8 +29,9 @@ public class SpawnManager : MonoBehaviour
 
         if(!projectileFound)
         {
-            ProjectileController projectile = Instantiate(prefab.GetComponent<ProjectileController>(), position, Quaternion.Euler(rotation));
-            projectile.ResetProjectile(projectileSpeed, isEnemy, duration);
+            ProjectileController projectile = Instantiate(prefab.GetComponent<ProjectileController>(), position, Quaternion.identity);
+            projectile.transform.LookAt(aimTarget);
+            projectile.ResetProjectile(projectileSpeed, isEnemy, duration, damage);
             _projectileList.Add(projectile);
         }
 

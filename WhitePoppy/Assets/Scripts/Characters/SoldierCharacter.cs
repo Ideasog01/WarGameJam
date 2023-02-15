@@ -2,79 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldierCharacter : PlayerCharacter
+public class SoldierCharacter : BaseCharacter
 {
-    [SerializeField]
-    private Transform projectilePrefab;
-
-    [SerializeField]
-    private Transform spawnPos;
-
-    [SerializeField]
-    private Animator playerAnimator;
-
-    [SerializeField]
-    private float projectileMovementSpeed;
-
-    [SerializeField]
-    private float projectileDuration;
-
-    [SerializeField]
-    private int maxAmmo;
-
-    [SerializeField]
-    private float reloadTime;
-
-    [SerializeField]
-    private float fireCooldown;
-
-    private bool _fireDisabled;
-
-    private int _ammo;
-
-    private SpawnManager _spawnManager;
-
-    private bool _isReloading;
-
-    private void Awake()
-    {
-        _spawnManager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
-        _ammo = maxAmmo;
-    }
+    public static InteractItem interactItem;
 
     public void Fire()
     {
-        if(_ammo > 0 && !_fireDisabled)
+        if(Ammo > 0 && !FireDisabled)
         {
-            _spawnManager.SpawnProjectile(projectilePrefab, spawnPos.position, spawnPos.eulerAngles, projectileMovementSpeed, false, projectileDuration);
-            _ammo--;
+            SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, ProjectileMovementSpeed, false, ProjectileDuration, ProjectileDamage);
+            Ammo--;
             StartCoroutine(FireCooldown());
-            playerAnimator.SetTrigger("fire");
+            CharacterAnimator.SetTrigger("fire");
         }
     }
 
     public void Reload()
     {
-        if(!_isReloading && !_fireDisabled && _ammo < maxAmmo)
+        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo)
         {
-            playerAnimator.SetTrigger("reload");
-            _ammo = 0;
-            _isReloading = true;
+            CharacterAnimator.SetTrigger("reload");
+            Ammo = 0;
+            IsReloading = true;
             StartCoroutine(ReloadDelay());
         }
     }
 
     private IEnumerator FireCooldown()
     {
-        _fireDisabled = true;
-        yield return new WaitForSeconds(fireCooldown);
-        _fireDisabled = false;
+        FireDisabled = true;
+        yield return new WaitForSeconds(FireCooldownRef);
+        FireDisabled = false;
     }
 
     private IEnumerator ReloadDelay()
     {
-        yield return new WaitForSeconds(reloadTime);
-        _ammo = maxAmmo;
-        _isReloading = false;
+        yield return new WaitForSeconds(ReloadTime);
+        Ammo = MaxAmmo;
+        IsReloading = false;
     }
 }

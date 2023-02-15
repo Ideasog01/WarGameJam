@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,9 +8,24 @@ public class GameManager : MonoBehaviour
 
     public static InteractItem interactItem;
 
+    public static SoldierCharacter playerController;
+
+    [SerializeField]
+    private bool combatScene = true;
+
     private void Awake()
     {
         cameraBrain = GameObject.Find("MainCamera").GetComponent<CinemachineBrain>();
+
+        if(combatScene)
+        {
+            playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+
+            if(playerController == null)
+            {
+                Debug.LogError("Error: The GameManager variable 'combatScene' is set to true, but there is no SoliderCharacter in the scene. \nOnly set this variable to true if the scene has a SoldierCharacter object");
+            }
+        }
     }
 
     public static void EnableCamera(bool active)
