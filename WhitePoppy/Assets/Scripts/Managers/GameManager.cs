@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static CinemachineBrain cameraBrain;
-
     public static InteractItem interactItem;
 
     public static SoldierCharacter playerController;
@@ -18,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        cameraBrain = GameObject.Find("MainCamera").GetComponent<CinemachineBrain>();
-
         if(combatScene)
         {
             playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
@@ -33,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     public static void EnableCamera(bool active)
     {
-        cameraBrain.enabled = active;
         playerController.GetComponent<FirstPersonController>().enabled = active;
     }
 
