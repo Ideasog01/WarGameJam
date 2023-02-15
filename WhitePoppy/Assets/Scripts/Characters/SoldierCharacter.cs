@@ -13,6 +13,8 @@ public class SoldierCharacter : BaseCharacter
     private void Start()
     {
         _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     public void Fire()
@@ -54,5 +56,14 @@ public class SoldierCharacter : BaseCharacter
     public void OnTakeDamage()
     {
         _playerInterface.UpdateDamageScreen(Health);
+    }
+
+    public void OnPlayerDeath()
+    {
+        _playerInterface.DisplayGameOverScreen();
+        //CharacterAnimator.SetBool("isDead", true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameManager.EnableCamera(false);
     }
 }

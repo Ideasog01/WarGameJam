@@ -23,6 +23,9 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private GameObject[] damageScreenArray;
 
+    [SerializeField]
+    private Animator gameOverAnimator;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
@@ -88,5 +91,12 @@ public class PlayerInterface : MonoBehaviour
             damageScreenArray[1].SetActive(true);
             damageScreenArray[2].SetActive(true);
         }
+    }
+
+    public void DisplayGameOverScreen()
+    {
+        gameOverAnimator.gameObject.SetActive(true);
+        gameOverAnimator.SetTrigger("trigger");
+        GameManager.gameInProgress = false;
     }
 }
