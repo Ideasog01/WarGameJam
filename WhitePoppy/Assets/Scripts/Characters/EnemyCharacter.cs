@@ -25,7 +25,7 @@ public class EnemyCharacter : BaseCharacter
     {
         if(!FireDisabled && Ammo > 0)
         {
-            SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, ProjectileMovementSpeed, true, ProjectileDuration, ProjectileDamage);
+            SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, SpawnPos.eulerAngles, ProjectileMovementSpeed, true, ProjectileDuration, ProjectileDamage);
             CharacterAnimator.SetTrigger("fire");
             Ammo--;
         }

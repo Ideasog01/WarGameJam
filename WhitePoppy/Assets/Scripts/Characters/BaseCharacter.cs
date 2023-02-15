@@ -39,6 +39,9 @@ public class BaseCharacter : MonoBehaviour
     [SerializeField]
     private UnityEvent onDeathEvent;
 
+    [SerializeField]
+    private UnityEvent onTakeDamageEvent;
+
     private bool _fireDisabled;
 
     private int _ammo;
@@ -134,9 +137,13 @@ public class BaseCharacter : MonoBehaviour
     {
         _health -= amount;
 
+        onTakeDamageEvent.Invoke();
+
         if(_health <= 0)
         {
             onDeathEvent.Invoke();
         }
+
+        Debug.Log(gameObject.name + " Health: " + _health);
     }
 }
