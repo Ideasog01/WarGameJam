@@ -29,6 +29,9 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private Animator transitionAnimator;
 
+    [SerializeField]
+    private bool fadeIn;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
@@ -41,7 +44,10 @@ public class PlayerInterface : MonoBehaviour
 
     private void Start()
     {
-        Transition(false);
+        if(fadeIn)
+        {
+            Transition(false);
+        }
     }
 
     public void DisplayLetter(string date, string addressee, string content, string sender, GameObject meshObj)
