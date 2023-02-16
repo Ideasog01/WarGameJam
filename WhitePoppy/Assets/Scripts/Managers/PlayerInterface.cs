@@ -36,10 +36,13 @@ public class PlayerInterface : MonoBehaviour
 
     private GameObject letterMesh;
 
+    private GameManager gameManager;
+
     private void Awake()
     {
         interactButton = GameObject.Find("InteractButton");
         interactButton.SetActive(false);
+        gameManager = this.GetComponent<GameManager>();
     }
 
     private void Start()
@@ -57,18 +60,23 @@ public class PlayerInterface : MonoBehaviour
         letterAddressee.text = addressee;
         letterContent.text = content;
         letterSender.text = sender;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        
+
         GameManager.EnableCamera(false);
         FirstPersonController.isMoving = false;
+        
         letterMesh = meshObj;
         letterMesh.SetActive(false);
+
+        // Curser
+        CurserBehaviour(true);
     }
 
     public void ExitLetter() //Via Inspector
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Curser
+        CurserBehaviour(false);
+        
         GameManager.EnableCamera(true);
         FirstPersonController.isMoving = true;
         letterCanvas.SetActive(false);
@@ -76,6 +84,9 @@ public class PlayerInterface : MonoBehaviour
         letterMesh = null;
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
+
+        // Transition to the scene
+        gameManager.LoadSceneTransition();
     }
 
     public static void DisplayInteractButton(bool active)
@@ -124,5 +135,15 @@ public class PlayerInterface : MonoBehaviour
         {
             transitionAnimator.SetTrigger("fadeOut");
         }
+    }
+
+    void CurserBehaviour(bool state)
+    {
+        Cursor.visible = state;
+        
+        if(state == true)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
     }
 }
