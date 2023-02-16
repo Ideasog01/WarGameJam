@@ -30,5 +30,6 @@ public class Item : InteractItem
     {
         _itemDisplay.DisplayItem(itemMesh, itemMaterial, itemScale, itemDescription, itemName, this.transform.GetChild(0).gameObject);
         PlayerInterface.DisplayInteractButton(false);
+        GameManager.levelToLoadByItem = levelToLoadByItemRef;
     }
 }

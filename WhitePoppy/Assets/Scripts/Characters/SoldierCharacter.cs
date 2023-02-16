@@ -71,6 +71,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void ToggleRifle()
     {
-        characterMesh.SetActive(!characterMesh.activeSelf);
+        if(!disableCombatMechanics)
+            characterMesh.SetActive(!characterMesh.activeSelf);
     }
 }

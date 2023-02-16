@@ -30,6 +30,13 @@ public class ItemDisplay : MonoBehaviour
 
     private GameObject _itemMesh;
 
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = this.GetComponent<GameManager>();
+    }
+
     public void DisplayItem(Mesh itemMesh, Material material, Vector3 scale, string itemDescription, string itemName, GameObject itemMeshObj)
     {
         itemObj.SetActive(true);
@@ -72,6 +79,9 @@ public class ItemDisplay : MonoBehaviour
         SoldierCharacter.disableCombatMechanics = false;
 
         crossHair.SetActive(true);
+
+        // Transition to the scene
+        gameManager.LoadSceneTransition();
     }
 
     private void Update()

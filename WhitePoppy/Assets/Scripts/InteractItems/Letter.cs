@@ -27,5 +27,6 @@ public class Letter : InteractItem
     {
         _playerInterface.DisplayLetter(letterDate, letterAddressee, letterContent, letterSender, this.transform.GetChild(0).gameObject);
         PlayerInterface.DisplayInteractButton(false);
+        GameManager.levelToLoadByItem = levelToLoadByItemRef;
     }
 }

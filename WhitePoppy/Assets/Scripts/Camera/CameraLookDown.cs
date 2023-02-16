@@ -24,6 +24,7 @@ public class CameraLookDown : MonoBehaviour
             player = other.gameObject;
             FirstPersonController.isMoving = false;
             player.gameObject.GetComponent<FirstPersonController>().isCarrying = true;
+            player.gameObject.GetComponent<SoldierCharacter>().ToggleRifle();
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDown());
@@ -34,6 +35,7 @@ public class CameraLookDown : MonoBehaviour
             player = other.gameObject;
             FirstPersonController.isMoving = false;
             player.gameObject.GetComponent<FirstPersonController>().isCarrying = false;
+            player.gameObject.GetComponent<SoldierCharacter>().ToggleRifle();
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDownDrop());
