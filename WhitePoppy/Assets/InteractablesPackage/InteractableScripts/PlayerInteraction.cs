@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     private float range = 2f;
 
