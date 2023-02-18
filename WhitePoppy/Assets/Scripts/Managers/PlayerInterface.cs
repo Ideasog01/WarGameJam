@@ -70,6 +70,8 @@ public class PlayerInterface : MonoBehaviour
 
     private GameManager gameManager;
 
+    private bool _objectiveActive;
+
     private void Awake()
     {
         interactButton = GameObject.Find("InteractButton");
@@ -197,15 +199,19 @@ public class PlayerInterface : MonoBehaviour
 
     public void DisplayObjectives()
     {
-        if(!objectiveAnimator.GetBool("active"))
+        if (mainDisplayObj.activeSelf)
         {
-            objectiveAnimator.SetBool("active", true);
-
-            UpdateObjectiveText();
-        }
-        else
-        {
-            objectiveAnimator.SetBool("active", false);
+            if (!_objectiveActive)
+            {
+                objectiveAnimator.SetTrigger("in");
+                UpdateObjectiveText();
+                _objectiveActive = true;
+            }
+            else
+            {
+                objectiveAnimator.SetTrigger("out");
+                _objectiveActive = false;
+            }
         }
     }
 
