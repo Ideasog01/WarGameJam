@@ -7001,6 +7001,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdf18c8794e9994a8e923eaa95bcc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSlider: {fileID: 0}
+  ammoText: {fileID: 0}
+  mainDisplayObj: {fileID: 0}
+  objectiveDescriptionText: {fileID: 0}
+  objectiveAnimator: {fileID: 0}
   letterCanvas: {fileID: 7894404969148084141}
   letterDate: {fileID: 7894404969677411979}
   letterAddressee: {fileID: 7894404970184944397}

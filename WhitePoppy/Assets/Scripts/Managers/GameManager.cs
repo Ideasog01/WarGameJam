@@ -53,19 +53,18 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneTransition()
     {
-        playerInterface.Transition(true);
-        StartCoroutine("WaitBeforeDoingShitThankYou");
+        if(levelToLoadByItem != InteractItem.LevelToLoadByItem.None)
+        {
+            playerInterface.Transition(true);
+            StartCoroutine(WaitBeforeSceneTransition());
+        }
     }
 
-    IEnumerator WaitBeforeDoingShitThankYou()
+    IEnumerator WaitBeforeSceneTransition()
     {
         yield return new WaitForSeconds(2f);
         
-        if (levelToLoadByItem == InteractItem.LevelToLoadByItem.None)
-        {
-            yield return null;
-        }
-        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level1)
+        if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level1)
         {
             SceneManager.LoadScene("Level 2");
         }

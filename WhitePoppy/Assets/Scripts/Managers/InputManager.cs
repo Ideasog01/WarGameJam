@@ -25,6 +25,8 @@ public class InputManager : MonoBehaviour
 
     private SoldierCharacter _soldierCharacter;
 
+    private PlayerInterface _playerInterface;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -41,6 +43,7 @@ public class InputManager : MonoBehaviour
         if(combatScene)
         {
             _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+            _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
         }
         
 
@@ -57,6 +60,8 @@ public class InputManager : MonoBehaviour
             controls.Player.Fire.performed += ctx => _soldierCharacter.Fire();
             controls.Player.Reload.performed += ctx => _soldierCharacter.Reload();
             controls.Player.ToggleRifle.performed += ctx => _soldierCharacter.ToggleRifle();
+            controls.Player.ToggleRifle.performed += ctx => _playerInterface.ToggleMainHUD();
+            controls.Player.ToggleObjectiveView.performed += ctx => _playerInterface.DisplayObjectives();
         }
     }
 

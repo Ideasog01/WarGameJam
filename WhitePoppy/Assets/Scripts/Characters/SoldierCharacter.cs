@@ -18,6 +18,8 @@ public class SoldierCharacter : BaseCharacter
         _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
+        _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
+        _playerInterface.UpdateHealth(Health, MaxHealth);
     }
 
     public void Fire()
@@ -28,6 +30,7 @@ public class SoldierCharacter : BaseCharacter
             Ammo--;
             StartCoroutine(FireCooldown());
             CharacterAnimator.SetTrigger("fire");
+            _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
         }
     }
 
@@ -39,6 +42,7 @@ public class SoldierCharacter : BaseCharacter
             Ammo = 0;
             IsReloading = true;
             StartCoroutine(ReloadDelay());
+            _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
         }
     }
 
@@ -54,6 +58,7 @@ public class SoldierCharacter : BaseCharacter
         yield return new WaitForSeconds(ReloadTime);
         Ammo = MaxAmmo;
         IsReloading = false;
+        _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
     }
 
     public void OnTakeDamage()
