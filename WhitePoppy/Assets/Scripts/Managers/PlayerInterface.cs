@@ -5,6 +5,28 @@ using StarterAssets;
 
 public class PlayerInterface : MonoBehaviour
 {
+
+    [Header("Main Display")]
+
+    [SerializeField]
+    private Slider healthSlider;
+
+    [SerializeField]
+    private TextMeshProUGUI ammoText;
+
+    [SerializeField]
+    private GameObject mainDisplayObj;
+
+    [Header("Objectives Display")]
+
+    [SerializeField]
+    private TextMeshProUGUI objectiveDescriptionText;
+
+    [SerializeField]
+    private Animator objectiveAnimator;
+
+    [Header("Letter Display")]
+
     [SerializeField]
     private GameObject letterCanvas;
 
@@ -19,6 +41,8 @@ public class PlayerInterface : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI letterSender;
+
+    [Header("General Display")]
 
     [SerializeField]
     private GameObject[] damageScreenArray;
@@ -36,10 +60,15 @@ public class PlayerInterface : MonoBehaviour
 
     private GameObject letterMesh;
 
+    private GameManager gameManager;
+
+    private string _objectiveDescription;
+
     private void Awake()
     {
         interactButton = GameObject.Find("InteractButton");
         interactButton.SetActive(false);
+        gameManager = this.GetComponent<GameManager>();
     }
 
     private void Start()
@@ -57,18 +86,23 @@ public class PlayerInterface : MonoBehaviour
         letterAddressee.text = addressee;
         letterContent.text = content;
         letterSender.text = sender;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        
+
         GameManager.EnableCamera(false);
         FirstPersonController.isMoving = false;
+        
         letterMesh = meshObj;
         letterMesh.SetActive(false);
+
+        // Curser
+        CurserBehaviour(true);
     }
 
     public void ExitLetter() //Via Inspector
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Curser
+        CurserBehaviour(false);
+        
         GameManager.EnableCamera(true);
         FirstPersonController.isMoving = true;
         letterCanvas.SetActive(false);
@@ -76,6 +110,9 @@ public class PlayerInterface : MonoBehaviour
         letterMesh = null;
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
+
+        // Transition to the scene
+        gameManager.LoadSceneTransition();
     }
 
     public static void DisplayInteractButton(bool active)
@@ -123,6 +160,59 @@ public class PlayerInterface : MonoBehaviour
         else
         {
             transitionAnimator.SetTrigger("fadeOut");
+        }
+    }
+
+    private void CurserBehaviour(bool state)
+    {
+        Cursor.visible = state;
+        
+        if(state == true)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void UpdateHealth(int health, int maxHealth)
+    {
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = health;
+    }
+
+    public void UpdateAmmo(int ammo, int maxAmmo)
+    {
+        ammoText.text = "Ammo: " + ammo.ToString() + "/" + maxAmmo.ToString();
+    }
+
+    public void DisplayObjectives()
+    {
+        if(!objectiveAnimator.GetBool("active"))
+        {
+            objectiveAnimator.SetBool("active", true);
+            objectiveDescriptionText.text = _objectiveDescription;
+        }
+        else
+        {
+            objectiveAnimator.SetBool("active", false);
+        }
+    }
+
+    public void SetObjective(string objectiveDescription)
+    {
+        objectiveDescriptionText.text = objectiveDescription;
+        _objectiveDescription = objectiveDescription;
+        DisplayObjectives();
+    }
+
+    public void ToggleMainHUD()
+    {
+        if(mainDisplayObj.activeSelf)
+        {
+            mainDisplayObj.SetActive(false);
+        }
+        else
+        {
+            mainDisplayObj.SetActive(true);
         }
     }
 }

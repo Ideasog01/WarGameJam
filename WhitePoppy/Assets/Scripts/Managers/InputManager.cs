@@ -8,9 +8,8 @@ public class InputManager : MonoBehaviour
 
     private static InputManager instance;
 
-    //For the player only
-    private bool isSprinting = false;
-    private bool isCrouching = false;
+    [SerializeField]
+    private bool combatScene;
 
     public static InputManager Instance
     {
@@ -26,6 +25,8 @@ public class InputManager : MonoBehaviour
 
     private SoldierCharacter _soldierCharacter;
 
+    private PlayerInterface _playerInterface;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -38,7 +39,13 @@ public class InputManager : MonoBehaviour
         }
 
         _playerInteract = GameObject.Find("Player").GetComponent<PlayerInteract>();
-        _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+
+        if(combatScene)
+        {
+            _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+            _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
+        }
+        
 
         controls = new PlayerInputSystem();
         InitialiseInput();
@@ -47,8 +54,15 @@ public class InputManager : MonoBehaviour
     private void InitialiseInput()
     {
         controls.Player.Interact.performed += ctx => _playerInteract.Interact();
-        controls.Player.Fire.performed += ctx => _soldierCharacter.Fire();
-        controls.Player.Reload.performed += ctx => _soldierCharacter.Reload();
+
+        if(combatScene)
+        {
+            controls.Player.Fire.performed += ctx => _soldierCharacter.Fire();
+            controls.Player.Reload.performed += ctx => _soldierCharacter.Reload();
+            controls.Player.ToggleRifle.performed += ctx => _soldierCharacter.ToggleRifle();
+            controls.Player.ToggleRifle.performed += ctx => _playerInterface.ToggleMainHUD();
+            controls.Player.ToggleObjectiveView.performed += ctx => _playerInterface.DisplayObjectives();
+        }
     }
 
     private void OnEnable()

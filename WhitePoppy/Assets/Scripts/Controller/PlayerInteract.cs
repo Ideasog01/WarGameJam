@@ -20,6 +20,10 @@ public class PlayerInteract : MonoBehaviour
                 item.InteractItem();
                 SoldierCharacter.disableCombatMechanics = true;
             }
+            else if(interactItem.TryGetComponent<DialogueTrigger>(out DialogueTrigger trigger))
+            {
+                trigger.ActivateDialogue();
+            }
         }
     }
 }
