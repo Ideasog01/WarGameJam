@@ -23,6 +23,9 @@ public class PlayerInterface : MonoBehaviour
     private TextMeshProUGUI objectiveDescriptionText;
 
     [SerializeField]
+    private TextMeshProUGUI objectiveProgressionText;
+
+    [SerializeField]
     private Animator objectiveAnimator;
 
     [Header("Letter Display")]
@@ -114,7 +117,10 @@ public class PlayerInterface : MonoBehaviour
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
 
-        GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        if(GameManager.interactItem.IsObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
@@ -194,12 +200,30 @@ public class PlayerInterface : MonoBehaviour
         if(!objectiveAnimator.GetBool("active"))
         {
             objectiveAnimator.SetBool("active", true);
-            objectiveDescriptionText.text = ObjectiveManager.currentObjective.ObjectiveDescription;
+
+            UpdateObjectiveText();
         }
         else
         {
             objectiveAnimator.SetBool("active", false);
         }
+    }
+
+    public void UpdateObjectiveText()
+    {
+        Objective objective = ObjectiveManager.currentObjective;
+
+        if (objective.DisplayProgression)
+        {
+            objectiveProgressionText.gameObject.SetActive(true);
+            objectiveProgressionText.text = objective.Progression + "/" + objective.MaxProgress;
+        }
+        else
+        {
+            objectiveProgressionText.gameObject.SetActive(false);
+        }
+
+        objectiveDescriptionText.text = objective.ObjectiveDescription;
     }
 
     public void ToggleMainHUD()

@@ -80,7 +80,10 @@ public class ItemDisplay : MonoBehaviour
 
         crossHair.SetActive(true);
 
-        GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        if (GameManager.interactItem.IsObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();

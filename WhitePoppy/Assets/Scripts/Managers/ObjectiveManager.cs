@@ -17,11 +17,17 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField]
     private Animator objectiveAnimator;
 
+    [SerializeField]
+    private bool autoSceneTransition;
+
     private GameManager _gameManager;
+
+    private PlayerInterface _playerInterface;
 
     private void Awake()
     {
         _gameManager = this.GetComponent<GameManager>();
+        _playerInterface = this.GetComponent<PlayerInterface>();
     }
 
     private void Start()
@@ -43,12 +49,15 @@ public class ObjectiveManager : MonoBehaviour
 
         if(currentObjective.Progression >= currentObjective.MaxProgress)
         {
+            currentObjective.CompleteEvents.Invoke();
+
             objectiveIndex++;
 
-            if(objectiveIndex >= objectiveList.Length)
+            if(objectiveIndex >= objectiveList.Length && autoSceneTransition)
             {
                 GameManager.levelToLoad = InteractItem.LevelToLoadByItem.House;
                 _gameManager.LoadSceneTransition();
+                return;
             }
             else
             {
@@ -56,20 +65,24 @@ public class ObjectiveManager : MonoBehaviour
                 objectiveAnimator.SetTrigger("activate");
             }
 
-            currentObjective.CompleteEvents.Invoke();
-
+            
             Debug.Log("Objective Complete");
         }
+
+        _playerInterface.UpdateObjectiveText();
     }
 }
 
 [System.Serializable]
 public struct Objective
 {
-    public enum ObjectiveType { Miscellaneous, DefeatEnemy, ReachLocation, FindItem };
+    public enum ObjectiveType { Miscellaneous, DefeatEnemy, ReachLocation, FindItem, DeliverItem, TalkToCharacter };
 
     [SerializeField]
     private string objectiveDescription;
+
+    [SerializeField]
+    private bool displayProgression;
 
     [SerializeField]
     private ObjectiveType objectiveType;
@@ -86,6 +99,11 @@ public struct Objective
     public string ObjectiveDescription
     {
         get { return objectiveDescription; }
+    }
+
+    public bool DisplayProgression
+    {
+        get { return displayProgression; }
     }
 
     public ObjectiveType ObjectiveTypeRef

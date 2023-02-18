@@ -12,6 +12,9 @@ public class InteractItem : MonoBehaviour
     [SerializeField]
     private LevelToLoadByItem levelToLoadByItem;
 
+    [SerializeField]
+    private bool isObjectiveAndIsActive;
+
     public LevelToLoadByItem levelToLoadByItemRef
     {
         get { return levelToLoadByItem; }
@@ -21,6 +24,12 @@ public class InteractItem : MonoBehaviour
     {
         get { return itemEnabled; }
         set { itemEnabled = value; }
+    }
+
+    public bool IsObjectiveAndIsActive
+    {
+        get { return isObjectiveAndIsActive; }
+        set { isObjectiveAndIsActive = value; }
     }
 
     private void OnTriggerEnter(Collider other)
