@@ -19,21 +19,23 @@ public class CameraLookDown : MonoBehaviour
     //Ignore the repeatitive code :D 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<FirstPersonController>().isCarrying)
+        if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying == false && this.tag == "PickUpArea")
         {
             player = other.gameObject;
             FirstPersonController.isMoving = false;
             player.gameObject.GetComponent<FirstPersonController>().isCarrying = true;
+            player.gameObject.GetComponent<SoldierCharacter>().ToggleRifle();
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDown());
 
         }
-        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying)
+        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying == true && this.tag == "DropOffArea")
         {
             player = other.gameObject;
             FirstPersonController.isMoving = false;
             player.gameObject.GetComponent<FirstPersonController>().isCarrying = false;
+            player.gameObject.GetComponent<SoldierCharacter>().ToggleRifle();
             stateDrivenCamera = GameObject.FindObjectOfType<CinemachineStateDrivenCamera>().gameObject;
             animator = stateDrivenCamera.GetComponent<Animator>();
             StartCoroutine(LookDownDrop());

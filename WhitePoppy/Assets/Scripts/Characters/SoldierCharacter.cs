@@ -2,79 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldierCharacter : PlayerCharacter
+public class SoldierCharacter : BaseCharacter
 {
-    [SerializeField]
-    private Transform projectilePrefab;
+    public static InteractItem interactItem;
+
+    public static bool disableCombatMechanics;
 
     [SerializeField]
-    private Transform spawnPos;
+    private GameObject characterMesh;
 
-    [SerializeField]
-    private Animator playerAnimator;
+    private PlayerInterface _playerInterface;
 
-    [SerializeField]
-    private float projectileMovementSpeed;
-
-    [SerializeField]
-    private float projectileDuration;
-
-    [SerializeField]
-    private int maxAmmo;
-
-    [SerializeField]
-    private float reloadTime;
-
-    [SerializeField]
-    private float fireCooldown;
-
-    private bool _fireDisabled;
-
-    private int _ammo;
-
-    private SpawnManager _spawnManager;
-
-    private bool _isReloading;
-
-    private void Awake()
+    private void Start()
     {
-        _spawnManager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
-        _ammo = maxAmmo;
+        _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     public void Fire()
     {
-        if(_ammo > 0 && !_fireDisabled)
+        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf)
         {
-            _spawnManager.SpawnProjectile(projectilePrefab, spawnPos.position, spawnPos.eulerAngles, projectileMovementSpeed, false, projectileDuration);
-            _ammo--;
+            SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, Vector3.zero, ProjectileMovementSpeed, false, ProjectileDuration, ProjectileDamage);
+            Ammo--;
             StartCoroutine(FireCooldown());
-            playerAnimator.SetTrigger("fire");
+            CharacterAnimator.SetTrigger("fire");
         }
     }
 
     public void Reload()
     {
-        if(!_isReloading && !_fireDisabled && _ammo < maxAmmo)
+        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf)
         {
-            playerAnimator.SetTrigger("reload");
-            _ammo = 0;
-            _isReloading = true;
+            CharacterAnimator.SetTrigger("reload");
+            Ammo = 0;
+            IsReloading = true;
             StartCoroutine(ReloadDelay());
         }
     }
 
     private IEnumerator FireCooldown()
     {
-        _fireDisabled = true;
-        yield return new WaitForSeconds(fireCooldown);
-        _fireDisabled = false;
+        FireDisabled = true;
+        yield return new WaitForSeconds(FireCooldownRef);
+        FireDisabled = false;
     }
 
     private IEnumerator ReloadDelay()
     {
-        yield return new WaitForSeconds(reloadTime);
-        _ammo = maxAmmo;
-        _isReloading = false;
+        yield return new WaitForSeconds(ReloadTime);
+        Ammo = MaxAmmo;
+        IsReloading = false;
+    }
+
+    public void OnTakeDamage()
+    {
+        _playerInterface.UpdateDamageScreen(Health);
+    }
+
+    public void OnPlayerDeath()
+    {
+        _playerInterface.DisplayGameOverScreen();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameManager.EnableCamera(false);
+    }
+
+    public void ToggleRifle()
+    {
+        if(!disableCombatMechanics)
+            characterMesh.SetActive(!characterMesh.activeSelf);
     }
 }
