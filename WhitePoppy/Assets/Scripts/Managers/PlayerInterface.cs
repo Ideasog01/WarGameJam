@@ -67,8 +67,6 @@ public class PlayerInterface : MonoBehaviour
 
     private GameManager gameManager;
 
-    private string _objectiveDescription;
-
     private void Awake()
     {
         interactButton = GameObject.Find("InteractButton");
@@ -115,6 +113,8 @@ public class PlayerInterface : MonoBehaviour
         letterMesh = null;
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
+
+        GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
@@ -194,19 +194,12 @@ public class PlayerInterface : MonoBehaviour
         if(!objectiveAnimator.GetBool("active"))
         {
             objectiveAnimator.SetBool("active", true);
-            objectiveDescriptionText.text = _objectiveDescription;
+            objectiveDescriptionText.text = ObjectiveManager.currentObjective.ObjectiveDescription;
         }
         else
         {
             objectiveAnimator.SetBool("active", false);
         }
-    }
-
-    public void SetObjective(string objectiveDescription)
-    {
-        objectiveDescriptionText.text = objectiveDescription;
-        _objectiveDescription = objectiveDescription;
-        DisplayObjectives();
     }
 
     public void ToggleMainHUD()

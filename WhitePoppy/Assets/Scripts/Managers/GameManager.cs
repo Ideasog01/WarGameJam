@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static InteractItem.LevelToLoadByItem levelToLoadByItem;
+    public static InteractItem.LevelToLoadByItem levelToLoad;
 
     public static InteractItem interactItem;
 
     public static SoldierCharacter playerController;
+
+    public static ObjectiveManager objectiveManager;
 
     public static bool gameInProgress = true;
 
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
         if(combatScene)
         {
             playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+            objectiveManager = this.GetComponent<ObjectiveManager>();
 
             if(playerController == null)
             {
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneTransition()
     {
-        if(levelToLoadByItem != InteractItem.LevelToLoadByItem.None)
+        if(levelToLoad != InteractItem.LevelToLoadByItem.None)
         {
             playerInterface.Transition(true);
             StartCoroutine(WaitBeforeSceneTransition());
@@ -91,18 +94,6 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitBeforeSceneTransition()
     {
         yield return new WaitForSeconds(2f);
-        
-        if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level1)
-        {
-            SceneManager.LoadScene("Level 2");
-        }
-        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level2)
-        {
-            SceneManager.LoadScene("Level 3");
-        }
-        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level3)
-        {
-            SceneManager.LoadScene("Level 4");
-        }
+        SceneManager.LoadScene((int)levelToLoad);
     }
 }

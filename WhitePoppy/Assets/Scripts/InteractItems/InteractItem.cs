@@ -7,8 +7,7 @@ public class InteractItem : MonoBehaviour
     [SerializeField]
     private bool itemEnabled = true;
 
-
-    public enum LevelToLoadByItem {None, Level1, Level2, Level3}
+    public enum LevelToLoadByItem {None, House, BattlefieldTrenches, ForestBattlefield, InvadedFacility}
     
     [SerializeField]
     private LevelToLoadByItem levelToLoadByItem;

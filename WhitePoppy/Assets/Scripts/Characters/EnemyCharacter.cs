@@ -116,5 +116,7 @@ public class EnemyCharacter : BaseCharacter
         _navMeshAgent.enabled = false;
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
+
+        GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DefeatEnemy);
     }
 }
