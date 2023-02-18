@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     private PlayerInterface playerInterface;
 
-    
-
     [SerializeField]
     private bool combatScene = true;
 
@@ -58,6 +56,36 @@ public class GameManager : MonoBehaviour
             playerInterface.Transition(true);
             StartCoroutine(WaitBeforeSceneTransition());
         }
+    }
+
+    public void PauseGame()
+    {
+        if(gameInProgress)
+        {
+            playerInterface.DisplayPauseMenu(true);
+            gameInProgress = false;
+            Time.timeScale = 0.0f;
+            EnableCamera(false);
+            SoldierCharacter.disableCombatMechanics = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            playerInterface.DisplayPauseMenu(false);
+            gameInProgress = true;
+            Time.timeScale = 1.0f;
+            EnableCamera(true);
+            SoldierCharacter.disableCombatMechanics = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+        }
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     IEnumerator WaitBeforeSceneTransition()

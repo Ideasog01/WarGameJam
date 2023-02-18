@@ -54,7 +54,7 @@ public class EnemyCharacter : BaseCharacter
 
     private void Update()
     {
-        if(Health > 0 && _soldierCharacter.Health > 0)
+        if(Health > 0 && _soldierCharacter.Health > 0 && GameManager.gameInProgress)
         {
             if (IsPlayerNear())
             {

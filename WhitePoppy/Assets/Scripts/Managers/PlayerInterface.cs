@@ -56,6 +56,11 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private bool fadeIn;
 
+    [Header("Pause Menu")]
+
+    [SerializeField]
+    private GameObject pauseMenuObj;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
@@ -214,5 +219,10 @@ public class PlayerInterface : MonoBehaviour
         {
             mainDisplayObj.SetActive(true);
         }
+    }
+
+    public void DisplayPauseMenu(bool active)
+    {
+        pauseMenuObj.SetActive(active);
     }
 }
