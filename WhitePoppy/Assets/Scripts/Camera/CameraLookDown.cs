@@ -13,6 +13,9 @@ public class CameraLookDown : MonoBehaviour
     [SerializeField]
     private GameObject droppedObject;
 
+    [SerializeField]
+    private bool isObjectiveAndIsActive;
+
     private GameObject player;
     #endregion
 
@@ -61,5 +64,10 @@ public class CameraLookDown : MonoBehaviour
         animator.Play("MainCamera");
         FirstPersonController.isMoving = true;
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
+
+        if(isObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DeliverItem);
+        }
     }
 }

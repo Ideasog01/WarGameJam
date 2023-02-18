@@ -23,6 +23,9 @@ public class PlayerInterface : MonoBehaviour
     private TextMeshProUGUI objectiveDescriptionText;
 
     [SerializeField]
+    private TextMeshProUGUI objectiveProgressionText;
+
+    [SerializeField]
     private Animator objectiveAnimator;
 
     [Header("Letter Display")]
@@ -66,8 +69,6 @@ public class PlayerInterface : MonoBehaviour
     private GameObject letterMesh;
 
     private GameManager gameManager;
-
-    private string _objectiveDescription;
 
     private void Awake()
     {
@@ -115,6 +116,11 @@ public class PlayerInterface : MonoBehaviour
         letterMesh = null;
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
+
+        if(GameManager.interactItem.IsObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
@@ -194,7 +200,8 @@ public class PlayerInterface : MonoBehaviour
         if(!objectiveAnimator.GetBool("active"))
         {
             objectiveAnimator.SetBool("active", true);
-            objectiveDescriptionText.text = _objectiveDescription;
+
+            UpdateObjectiveText();
         }
         else
         {
@@ -202,11 +209,21 @@ public class PlayerInterface : MonoBehaviour
         }
     }
 
-    public void SetObjective(string objectiveDescription)
+    public void UpdateObjectiveText()
     {
-        objectiveDescriptionText.text = objectiveDescription;
-        _objectiveDescription = objectiveDescription;
-        DisplayObjectives();
+        Objective objective = ObjectiveManager.currentObjective;
+
+        if (objective.DisplayProgression)
+        {
+            objectiveProgressionText.gameObject.SetActive(true);
+            objectiveProgressionText.text = objective.Progression + "/" + objective.MaxProgress;
+        }
+        else
+        {
+            objectiveProgressionText.gameObject.SetActive(false);
+        }
+
+        objectiveDescriptionText.text = objective.ObjectiveDescription;
     }
 
     public void ToggleMainHUD()
