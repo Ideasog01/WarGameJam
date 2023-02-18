@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneTransition()
     {
-        playerInterface.Transition(true);
+
         StartCoroutine("WaitBeforeDoingShitThankYou");
     }
 
@@ -67,14 +67,17 @@ public class GameManager : MonoBehaviour
         }
         else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level1)
         {
+            playerInterface.Transition(true);
             SceneManager.LoadScene("Level 2");
         }
         else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level2)
         {
+            playerInterface.Transition(true);
             SceneManager.LoadScene("Level 3");
         }
         else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level3)
         {
+            playerInterface.Transition(true);
             SceneManager.LoadScene("Level 4");
         }
     }
