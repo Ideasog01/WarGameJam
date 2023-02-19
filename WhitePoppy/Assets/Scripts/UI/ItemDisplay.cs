@@ -93,6 +93,11 @@ public class ItemDisplay : MonoBehaviour
             GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
+        if (GameManager.interactItem.IsHouseItem)
+        {
+            SaveManager.IncreaseItemCollection();
+        }
+
         // Transition to the scene
         gameManager.LoadSceneTransition();
     }

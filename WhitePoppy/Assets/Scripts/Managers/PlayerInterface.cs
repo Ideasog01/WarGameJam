@@ -94,7 +94,6 @@ public class PlayerInterface : MonoBehaviour
         letterAddressee.text = addressee;
         letterContent.text = content;
         letterSender.text = sender;
-        
 
         GameManager.EnableCamera(false);
         FirstPersonController.isMoving = false;
@@ -123,6 +122,11 @@ public class PlayerInterface : MonoBehaviour
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
             GameManager.interactItem.IsObjectiveAndIsActive = false;
+        }
+
+        if(GameManager.interactItem.IsHouseItem)
+        {
+            SaveManager.IncreaseItemCollection();
         }
 
         // Transition to the scene
