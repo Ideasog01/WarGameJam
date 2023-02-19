@@ -59,7 +59,10 @@ public class ItemDisplay : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        crossHair.SetActive(false);
+        if(crossHair != null)
+        {
+            crossHair.SetActive(false);
+        }
     }
 
     public void ExitItem()
@@ -78,7 +81,11 @@ public class ItemDisplay : MonoBehaviour
         PlayerInterface.DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
 
-        crossHair.SetActive(true);
+        if(crossHair != null)
+        {
+            crossHair.SetActive(true);
+        }
+        
 
         if (GameManager.interactItem.IsObjectiveAndIsActive)
         {

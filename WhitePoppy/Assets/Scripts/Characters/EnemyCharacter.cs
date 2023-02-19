@@ -17,7 +17,7 @@ public class EnemyCharacter : BaseCharacter
     private void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
-        _soldierCharacter = GameManager.playerController;
+        _soldierCharacter = GameManager.playerController.GetComponent<SoldierCharacter>();
         _navMeshAgent.updateRotation = false;
     }
 
