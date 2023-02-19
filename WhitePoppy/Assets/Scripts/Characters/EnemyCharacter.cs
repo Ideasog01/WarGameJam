@@ -8,11 +8,18 @@ public class EnemyCharacter : BaseCharacter
     [SerializeField]
     private GameObject rifleObj;
 
+    [SerializeField]
+    private Sound attackSound;
+
+    [SerializeField]
+    private Sound reloadSound;
+
+    [SerializeField]
+    private Sound deathSound;
+
     private NavMeshAgent _navMeshAgent;
 
     private SoldierCharacter _soldierCharacter;
-
-    private SoundSystem soundSystem;
 
     private bool _isInAttackRange;
 
@@ -30,7 +37,7 @@ public class EnemyCharacter : BaseCharacter
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, SpawnPos.eulerAngles, ProjectileMovementSpeed, true, ProjectileDuration, ProjectileDamage);
             CharacterAnimator.SetTrigger("fire");
             Ammo--;
-            soundSystem.PlaySoundEffect(0);
+            GameManager.soundSystem.PlaySound(attackSound);
         }
     }
 
@@ -46,8 +53,6 @@ public class EnemyCharacter : BaseCharacter
     public void Chase()
     {
         _navMeshAgent.SetDestination(_soldierCharacter.transform.position);
-
-        soundSystem.PlaySoundEffect(5);
     }
 
     private void LookAtPlayer()
@@ -113,7 +118,7 @@ public class EnemyCharacter : BaseCharacter
         yield return new WaitForSeconds(ReloadTime);
         Ammo = MaxAmmo;
         IsReloading = false;
-        soundSystem.PlaySoundEffect(1);
+        GameManager.soundSystem.PlaySound(reloadSound);
     }
 
     public void OnDeath()
@@ -123,7 +128,7 @@ public class EnemyCharacter : BaseCharacter
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
 
-        soundSystem.PlaySoundEffect(3);
+        GameManager.soundSystem.PlaySound(deathSound);
 
         GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DefeatEnemy);
     }

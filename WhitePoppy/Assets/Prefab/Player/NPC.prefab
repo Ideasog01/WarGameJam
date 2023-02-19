@@ -290,6 +290,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 8988446568957963598}
     m_Modifications:
+    - target: {fileID: 1455221299, guid: 6318a03f0029ca347ab9a056fa3d8e1d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 08960da0fca1f3145b2f70b01ee09656, type: 2}
     - target: {fileID: 7388800709006519016, guid: 6318a03f0029ca347ab9a056fa3d8e1d, type: 3}
       propertyPath: m_Name
       value: WW1_Soldier_1_Skin Variant (1)

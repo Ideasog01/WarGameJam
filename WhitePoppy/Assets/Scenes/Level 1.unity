@@ -45095,6 +45095,7 @@ GameObject:
   - component: {fileID: 9103997402363299096}
   - component: {fileID: 9103997402363299097}
   - component: {fileID: 9103997402363299104}
+  - component: {fileID: 9103997402363299105}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45143,6 +45144,23 @@ MonoBehaviour:
   transitionAnimator: {fileID: 772056080}
   fadeIn: 0
   pauseMenuObj: {fileID: 273694981437566817}
+--- !u!114 &9103997402363299105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9103997402363299101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c0f934b49b9c4438b15f9d205c3862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 091e64d0da8610d46ac2c39552c05c93, type: 2}
+  musicSource: []
+  soundEffectsSource: []
+  loopedAudioFX: []
+  TriggerAudioFX: []
 --- !u!4 &9103997403095324420
 Transform:
   m_ObjectHideFlags: 0

@@ -11,9 +11,24 @@ public class SoldierCharacter : BaseCharacter
     [SerializeField]
     private GameObject characterMesh;
 
-    private PlayerInterface _playerInterface;
+    [Header("Sounds")]
 
-    private SoundSystem soundSystem;
+    [SerializeField]
+    private Sound fireSound;
+
+    [SerializeField]
+    private Sound reloadSound;
+
+    [SerializeField]
+    private Sound damageSound;
+
+    [SerializeField]
+    private Sound deathSound;
+
+    [SerializeField]
+    private Sound toggleRifleSound;
+
+    private PlayerInterface _playerInterface;
 
     private void Start()
     {
@@ -22,7 +37,6 @@ public class SoldierCharacter : BaseCharacter
         Cursor.visible = false;
         _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
         _playerInterface.UpdateHealth(Health, MaxHealth);
-        soundSystem = GameObject.Find("MainCamera").GetComponent<SoundSystem>();      
     }
 
     public void Fire()
@@ -34,7 +48,7 @@ public class SoldierCharacter : BaseCharacter
             StartCoroutine(FireCooldown());
             CharacterAnimator.SetTrigger("fire");
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
-            soundSystem.PlaySoundEffect(0);
+            GameManager.soundSystem.PlaySound(fireSound);
         }
     }
 
@@ -47,7 +61,7 @@ public class SoldierCharacter : BaseCharacter
             IsReloading = true;
             StartCoroutine(ReloadDelay());
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
-            soundSystem.PlaySoundEffect(1);
+            GameManager.soundSystem.PlaySound(reloadSound);
         }
     }
 
@@ -69,7 +83,7 @@ public class SoldierCharacter : BaseCharacter
     public void OnTakeDamage()
     {
         _playerInterface.UpdateDamageScreen(Health);
-        soundSystem.PlaySoundEffect(2);
+        GameManager.soundSystem.PlaySound(damageSound);
     }
 
     public void OnPlayerDeath()
@@ -78,13 +92,13 @@ public class SoldierCharacter : BaseCharacter
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.EnableCamera(false);
-        soundSystem.PlaySoundEffect(3);
+        GameManager.soundSystem.PlaySound(deathSound);
     }
 
     public void ToggleRifle()
     {
         if(!disableCombatMechanics)
             characterMesh.SetActive(!characterMesh.activeSelf);
-        soundSystem.PlaySoundEffect(4);
+        GameManager.soundSystem.PlaySound(toggleRifleSound);
     }
 }

@@ -50,8 +50,6 @@ public class BaseCharacter : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
-    private SoundSystem soundSystem;
-
     private bool _isReloading;
 
     public SpawnManager SpawnManagerRef
@@ -145,7 +143,6 @@ public class BaseCharacter : MonoBehaviour
         _health -= amount;
 
         onTakeDamageEvent.Invoke();
-        soundSystem.PlaySoundEffect(2);
         if (_health <= 0)
         {
             onDeathEvent.Invoke();

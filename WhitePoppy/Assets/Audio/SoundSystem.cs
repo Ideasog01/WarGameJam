@@ -11,148 +11,143 @@ public class SoundSystem : MonoBehaviour
     private AudioMixer audioMixer;
 
     [SerializeField]
-    private AudioSource[] musicSource;
-
-
-    [SerializeField]
-    private AudioSource[] soundEffectsSource;
-
+    private Transform audioSourcePrefab;
 
     [SerializeField]
-    private AudioSource[] loopedAudioFX;
-    // BG / Transformed
+    private Sound[] environmentSounds;
 
-    [SerializeField]
-    private AudioSource[] TriggerAudioFX;
-    // munitions / objective / UI
+    private List<AudioSource> _audioSourceList = new List<AudioSource>();
 
     int SceneIndex;
 
-    //[SerializeField]
-    //AudioSettings AudioSettings;
-
-    //[SerializeField]
-    //private Slider volumeSlider;
-    //[SerializeField]
-    //private Text volumeText;
-    //[SerializeField]
-    //private float volume;
-    //[SerializeField]
-    //private float volumeMin;
-    //[SerializeField]
-    //private float volumeMax;
-
     private void Awake()
     {
-        //// Set the volume of the game to the last saved volume
-        //audioMixer.SetFloat("Volume", PlayerPrefs.GetFloat("Volume", 0));
-
         SceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // get current scene index
-        // if scene index = 0, play menu music
-        // if scene index = 1, play level 1 music
-        // if scene index = 2, play level 2 music
-        // if scene index = 3, play level 3 music
-        // if scene index = 4, play level 4 music
-
-        // MAIN MENU 0
-        // LEVEL 1 1
-        // LEVEL 2 2
-        // LEVEL 3 3
-        // LEVEL 4 4
-
-        PlayMusic(SceneIndex -1);
-
         if (SceneIndex == 4)
         {
-            PlayLoopedSFX(0); // rain
+             // rain
             //PlayLoopedSFX(1); // wind
 
-            StartCoroutine(DistantSFXTimer(2, 1, 8)); // transformed explosions
-            StartCoroutine(VariableMunitonSFX(3, 3, 40)); // distant explosions
-            StartCoroutine(DistantSFXTimer(4, 10, 80)); // thunder
-            StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
-            StartCoroutine(VariableMunitonSFX(6, 1, 10)); // bullet flyby
-            StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots transformed
-            StartCoroutine(VariableMunitonSFX(8, 1, 4)); // distant gunfire
+            
+
+            //StartCoroutine(DistantSFXTimer(2, 1, 8)); // transformed explosions
+            //StartCoroutine(VariableMunitonSFX(3, 3, 40)); // distant explosions
+            //StartCoroutine(DistantSFXTimer(4, 10, 80)); // thunder
+            //StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
+            //StartCoroutine(VariableMunitonSFX(6, 1, 10)); // bullet flyby
+            //StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots transformed
+            //StartCoroutine(VariableMunitonSFX(8, 1, 4)); // distant gunfire
+        }
+
+        foreach(Sound sound in environmentSounds)
+        {
+            StartCoroutine(PlayEnvironmentSound(sound));
         }
     }
 
     // Modular timer that plays the distant SFX at random intervals
-    IEnumerator DistantSFXTimer(int SFX, int bot, int top)
+    IEnumerator PlayEnvironmentSound(Sound sound)
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(bot, top));
-            PlayLoopedSFX(SFX);
+            yield return new WaitForSeconds(Random.Range(sound.MinWaitTime, sound.MaxWaitTime));
+            PlaySound(sound);
         }
     }
 
-    IEnumerator VariableMunitonSFX(int SFX, int bot, int top)
+    public void PlaySound(Sound sound)
     {
-        while (true)
+        AudioSource audio = null;
+
+        foreach(AudioSource audioItem in _audioSourceList)
         {
-            yield return new WaitForSeconds(Random.Range(bot, top));
-            PlayMunitionSFX(SFX);
+            if(!audioItem.isPlaying)
+            {
+                audio = audioItem;
+                audio.transform.position = sound.AttachPoint.position;
+                break;
+            }
         }
+
+        if(audio == null)
+        {
+            audio = Instantiate(audioSourcePrefab.GetComponent<AudioSource>(), sound.AttachPoint.position, Quaternion.identity, this.transform);
+        }
+
+        audio.loop = sound.LoopSound;
+        audio.volume = sound.Volume;
+        audio.pitch = sound.Pitch;
+        audio.panStereo = sound.PanStereo;
+        audio.clip = sound.Clip;
+
+        audio.Play();
+    }
+}
+
+[System.Serializable]
+public struct Sound
+{
+    [SerializeField]
+    private bool loopSound;
+
+    [SerializeField]
+    private float volume;
+
+    [SerializeField]
+    private float panStereo;
+
+    [SerializeField]
+    private float pitch;
+
+    [SerializeField]
+    private AudioClip audioClip;
+
+    [SerializeField]
+    private Transform attachPoint;
+
+    [SerializeField]
+    private int minWaitTime;
+
+    [SerializeField]
+    private int maxWaitTime;
+
+    public bool LoopSound
+    {
+        get { return loopSound; }
     }
 
-    /*
-     different types of looped SFX
-    1 = rain
-    2 = wind
-    3 = distantexplosions (sporadic)
-    4 = distantexplosions2 (sporadic)
-    4 = thunder (sporadic)
-    5 = machinegun (random bursts)
-    6 = bulletflyby (random sporadic)
-    8 = potshots (random sporadic)
-    9 = distant gunfire (random sporadic)
-    */
-
-    //public void SetVolume(float volume)
-    //{
-    //    // Set the volume of the game
-    //    audioMixer.SetFloat("Volume", volume);
-    //    PlayerPrefs.SetFloat("Volume", volume);
-    //    PlayerPrefs.Save();
-    //}
-
-    public void PlayMusic(int level)
+    public float Volume
     {
-        // Play the music for the level
-        musicSource[level].Play();
-        musicSource[level].loop= true;
+        get { return volume; }
     }
 
-    public void PlaySoundEffect(int soundEffect)
+    public float PanStereo
     {
-        // Play the sound effect
-        soundEffectsSource[soundEffect].Play();
+        get { return panStereo; }
     }
 
-
-    void PlayMunitionSFX(int Munition)
+    public float Pitch
     {
-        loopedAudioFX[Munition].Play();
-        loopedAudioFX[Munition].volume = Random.Range(0.5f, 1.0f);
-        loopedAudioFX[Munition].panStereo = Random.Range(-1.0f, 1.0f);
-        loopedAudioFX[Munition].pitch = Random.Range(0.5f, 1.5f);
+        get { return pitch; }
     }
 
-    public void PlayLoopedSFX(int loopedSound) 
+    public AudioClip Clip
     {
-        loopedAudioFX[loopedSound].Play();
+        get { return audioClip; }
     }
 
-    // Update is called once per frame
-    void Update()
+    public Transform AttachPoint
     {
+        get { return attachPoint; }
+    }
 
-        //// Update the volume slider and text
-        //volume = PlayerPrefs.GetFloat("Volume", 0);
-        //volumeSlider.value = volume;
-        //volumeText.text = "Volume: " + volume.ToString("0.00");
+    public int MaxWaitTime
+    {
+        get { return maxWaitTime; }
+    }
+
+    public int MinWaitTime
+    {
+        get { return minWaitTime; }
     }
 }
