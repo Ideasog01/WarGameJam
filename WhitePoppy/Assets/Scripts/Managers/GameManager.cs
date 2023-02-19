@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static InteractItem.LevelToLoadByItem levelToLoad;
+    public static InteractItem.LevelToLoadByItem levelToLoadByItem;
 
     public static InteractItem interactItem;
 
     public static SoldierCharacter playerController;
 
-    public static ObjectiveManager objectiveManager;
-
     public static bool gameInProgress = true;
 
     private PlayerInterface playerInterface;
+
+    
 
     [SerializeField]
     private bool combatScene = true;
@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
         if(combatScene)
         {
             playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
-            objectiveManager = this.GetComponent<ObjectiveManager>();
 
             if(playerController == null)
             {
@@ -54,46 +53,32 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneTransition()
     {
-        if(levelToLoad != InteractItem.LevelToLoadByItem.None)
-        {
-            playerInterface.Transition(true);
-            StartCoroutine(WaitBeforeSceneTransition());
-        }
+
+        StartCoroutine("WaitBeforeDoingShitThankYou");
     }
 
-    public void PauseGame()
-    {
-        if(gameInProgress)
-        {
-            playerInterface.DisplayPauseMenu(true);
-            gameInProgress = false;
-            Time.timeScale = 0.0f;
-            EnableCamera(false);
-            SoldierCharacter.disableCombatMechanics = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            playerInterface.DisplayPauseMenu(false);
-            gameInProgress = true;
-            Time.timeScale = 1.0f;
-            EnableCamera(true);
-            SoldierCharacter.disableCombatMechanics = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-        }
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
-    }
-
-    IEnumerator WaitBeforeSceneTransition()
+    IEnumerator WaitBeforeDoingShitThankYou()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene((int)levelToLoad);
+        
+        if (levelToLoadByItem == InteractItem.LevelToLoadByItem.None)
+        {
+            yield return null;
+        }
+        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level1)
+        {
+            playerInterface.Transition(true);
+            SceneManager.LoadScene("Level 2");
+        }
+        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level2)
+        {
+            playerInterface.Transition(true);
+            SceneManager.LoadScene("Level 3");
+        }
+        else if (levelToLoadByItem == InteractItem.LevelToLoadByItem.Level3)
+        {
+            playerInterface.Transition(true);
+            SceneManager.LoadScene("Level 4");
+        }
     }
 }

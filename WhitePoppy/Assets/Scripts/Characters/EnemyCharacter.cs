@@ -47,14 +47,14 @@ public class EnemyCharacter : BaseCharacter
 
     private void LookAtPlayer()
     {
-        Debug.Log("Looking at player!");
+        //Debug.Log("Looking at player!");
         this.transform.LookAt(_soldierCharacter.transform.position);
         this.transform.eulerAngles = new Vector3(0, this.transform.eulerAngles.y, 0);
     }
 
     private void Update()
     {
-        if(Health > 0 && _soldierCharacter.Health > 0 && GameManager.gameInProgress)
+        if(Health > 0 && _soldierCharacter.Health > 0)
         {
             if (IsPlayerNear())
             {
@@ -116,7 +116,5 @@ public class EnemyCharacter : BaseCharacter
         _navMeshAgent.enabled = false;
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
-
-        GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DefeatEnemy);
     }
 }
