@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject gameIntroCanvas;
+
     public void StartGame()
     {
         int levelToLoad = PlayerPrefs.GetInt("level");
