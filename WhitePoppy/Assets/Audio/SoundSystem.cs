@@ -13,13 +13,19 @@ public class SoundSystem : MonoBehaviour
     [SerializeField]
     private AudioSource[] musicSource;
 
+
     [SerializeField]
     private AudioSource[] soundEffectsSource;
 
+
     [SerializeField]
     private AudioSource[] loopedAudioFX;
+    // BG / Transformed
 
- 
+    [SerializeField]
+    private AudioSource[] TriggerAudioFX;
+    // munitions / objective / UI
+
     int SceneIndex;
 
     //[SerializeField]
@@ -51,18 +57,13 @@ public class SoundSystem : MonoBehaviour
         PlayLoopedSFX(0); // rain
         //PlayLoopedSFX(1); // wind
 
-        //StartCoroutine(DistantSFXTimer(2, 1, 8)); // distant explosions
+        StartCoroutine(DistantSFXTimer(2, 1, 8)); // transformed explosions
         StartCoroutine(VariableMunitonSFX(3, 3, 40)); // distant explosions
         StartCoroutine(DistantSFXTimer(4, 10, 80)); // thunder
-        //StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
+        StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
         StartCoroutine(VariableMunitonSFX(6, 1, 10)); // bullet flyby
-        //StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots
+        StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots transformed
         StartCoroutine(VariableMunitonSFX(8, 1, 4)); // distant gunfire
-
-
-
-
-
     }
 
     // Modular timer that plays the distant SFX at random intervals

@@ -13,6 +13,8 @@ public class SoldierCharacter : BaseCharacter
 
     private PlayerInterface _playerInterface;
 
+    private SoundSystem soundSystem;
+
     private void Start()
     {
         _playerInterface = GameObject.Find("GameManager").GetComponent<PlayerInterface>();
@@ -31,6 +33,7 @@ public class SoldierCharacter : BaseCharacter
             StartCoroutine(FireCooldown());
             CharacterAnimator.SetTrigger("fire");
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
+            soundSystem.PlaySoundEffect(0);
         }
     }
 
@@ -43,6 +46,7 @@ public class SoldierCharacter : BaseCharacter
             IsReloading = true;
             StartCoroutine(ReloadDelay());
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
+            soundSystem.PlaySoundEffect(1);
         }
     }
 
@@ -64,6 +68,7 @@ public class SoldierCharacter : BaseCharacter
     public void OnTakeDamage()
     {
         _playerInterface.UpdateDamageScreen(Health);
+        soundSystem.PlaySoundEffect(2);
     }
 
     public void OnPlayerDeath()
@@ -72,11 +77,13 @@ public class SoldierCharacter : BaseCharacter
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.EnableCamera(false);
+        soundSystem.PlaySoundEffect(3);
     }
 
     public void ToggleRifle()
     {
         if(!disableCombatMechanics)
             characterMesh.SetActive(!characterMesh.activeSelf);
+        soundSystem.PlaySoundEffect(4);
     }
 }
