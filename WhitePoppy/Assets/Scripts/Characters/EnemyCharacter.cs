@@ -55,7 +55,11 @@ public class EnemyCharacter : BaseCharacter
     private void Update()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(Health > 0 && _soldierCharacter.Health > 0 && GameManager.gameInProgress)
+=======
+        if(Health > 0 && _soldierCharacter.Health > 0)
+>>>>>>> parent of 9db7fa1 (Last update)
 =======
         if(Health > 0 && _soldierCharacter.Health > 0)
 >>>>>>> parent of 9db7fa1 (Last update)
@@ -121,8 +125,11 @@ public class EnemyCharacter : BaseCharacter
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DefeatEnemy);
+=======
+>>>>>>> parent of 9db7fa1 (Last update)
 =======
 >>>>>>> parent of 9db7fa1 (Last update)
     }
