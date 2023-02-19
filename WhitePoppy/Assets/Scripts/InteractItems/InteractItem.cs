@@ -7,11 +7,13 @@ public class InteractItem : MonoBehaviour
     [SerializeField]
     private bool itemEnabled = true;
 
-
-    public enum LevelToLoadByItem {None, Level1, Level2, Level3}
+    public enum LevelToLoadByItem {None, House, BattlefieldTrenches, ForestBattlefield, InvadedFacility}
     
     [SerializeField]
     private LevelToLoadByItem levelToLoadByItem;
+
+    [SerializeField]
+    private bool isObjectiveAndIsActive;
 
     public LevelToLoadByItem levelToLoadByItemRef
     {
@@ -22,6 +24,12 @@ public class InteractItem : MonoBehaviour
     {
         get { return itemEnabled; }
         set { itemEnabled = value; }
+    }
+
+    public bool IsObjectiveAndIsActive
+    {
+        get { return isObjectiveAndIsActive; }
+        set { isObjectiveAndIsActive = value; }
     }
 
     private void OnTriggerEnter(Collider other)

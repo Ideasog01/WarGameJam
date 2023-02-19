@@ -83,6 +83,11 @@ public class BaseCharacter : MonoBehaviour
         set { _health = value; }
     }
 
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
     public int MaxAmmo
     {
         get { return maxAmmo; }

@@ -5,6 +5,31 @@ using StarterAssets;
 
 public class PlayerInterface : MonoBehaviour
 {
+
+    [Header("Main Display")]
+
+    [SerializeField]
+    private Slider healthSlider;
+
+    [SerializeField]
+    private TextMeshProUGUI ammoText;
+
+    [SerializeField]
+    private GameObject mainDisplayObj;
+
+    [Header("Objectives Display")]
+
+    [SerializeField]
+    private TextMeshProUGUI objectiveDescriptionText;
+
+    [SerializeField]
+    private TextMeshProUGUI objectiveProgressionText;
+
+    [SerializeField]
+    private Animator objectiveAnimator;
+
+    [Header("Letter Display")]
+
     [SerializeField]
     private GameObject letterCanvas;
 
@@ -20,6 +45,8 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI letterSender;
 
+    [Header("General Display")]
+
     [SerializeField]
     private GameObject[] damageScreenArray;
 
@@ -32,11 +59,18 @@ public class PlayerInterface : MonoBehaviour
     [SerializeField]
     private bool fadeIn;
 
+    [Header("Pause Menu")]
+
+    [SerializeField]
+    private GameObject pauseMenuObj;
+
     private static GameObject interactButton;
 
     private GameObject letterMesh;
 
     private GameManager gameManager;
+
+    private bool _objectiveActive;
 
     private void Awake()
     {
@@ -84,6 +118,11 @@ public class PlayerInterface : MonoBehaviour
         letterMesh = null;
         DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
+
+        if(GameManager.interactItem.IsObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+        }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
@@ -137,7 +176,7 @@ public class PlayerInterface : MonoBehaviour
         }
     }
 
-    void CurserBehaviour(bool state)
+    private void CurserBehaviour(bool state)
     {
         Cursor.visible = state;
         
@@ -145,5 +184,68 @@ public class PlayerInterface : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         else
             Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void UpdateHealth(int health, int maxHealth)
+    {
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = health;
+    }
+
+    public void UpdateAmmo(int ammo, int maxAmmo)
+    {
+        ammoText.text = "Ammo: " + ammo.ToString() + "/" + maxAmmo.ToString();
+    }
+
+    public void DisplayObjectives()
+    {
+        if (mainDisplayObj.activeSelf)
+        {
+            if (!_objectiveActive)
+            {
+                objectiveAnimator.SetTrigger("in");
+                UpdateObjectiveText();
+                _objectiveActive = true;
+            }
+            else
+            {
+                objectiveAnimator.SetTrigger("out");
+                _objectiveActive = false;
+            }
+        }
+    }
+
+    public void UpdateObjectiveText()
+    {
+        Objective objective = ObjectiveManager.currentObjective;
+
+        if (objective.DisplayProgression)
+        {
+            objectiveProgressionText.gameObject.SetActive(true);
+            objectiveProgressionText.text = objective.Progression + "/" + objective.MaxProgress;
+        }
+        else
+        {
+            objectiveProgressionText.gameObject.SetActive(false);
+        }
+
+        objectiveDescriptionText.text = objective.ObjectiveDescription;
+    }
+
+    public void ToggleMainHUD()
+    {
+        if(mainDisplayObj.activeSelf)
+        {
+            mainDisplayObj.SetActive(false);
+        }
+        else
+        {
+            mainDisplayObj.SetActive(true);
+        }
+    }
+
+    public void DisplayPauseMenu(bool active)
+    {
+        pauseMenuObj.SetActive(active);
     }
 }

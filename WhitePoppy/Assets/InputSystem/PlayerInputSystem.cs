@@ -62,6 +62,24 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleObjectiveView"",
+                    ""type"": ""Button"",
+                    ""id"": ""0c8acabb-085e-49cf-9951-2054b78bcb4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""68028947-fc60-42c7-935f-3bde214044b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -150,6 +168,39 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleRifle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2001ed71-2765-4ebd-965a-4711a5d87fc9"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleObjectiveView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e8fff5b-9e47-4fec-b1d2-2b3d2fb95334"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a963976d-74ef-4cb3-b02e-2c1ee47a7992"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -741,6 +792,8 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_ToggleRifle = m_Player.FindAction("ToggleRifle", throwIfNotFound: true);
+        m_Player_ToggleObjectiveView = m_Player.FindAction("ToggleObjectiveView", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -816,6 +869,8 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_ToggleRifle;
+    private readonly InputAction m_Player_ToggleObjectiveView;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerInputSystem m_Wrapper;
@@ -824,6 +879,8 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @ToggleRifle => m_Wrapper.m_Player_ToggleRifle;
+        public InputAction @ToggleObjectiveView => m_Wrapper.m_Player_ToggleObjectiveView;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -845,6 +902,12 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @ToggleRifle.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRifle;
                 @ToggleRifle.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRifle;
                 @ToggleRifle.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRifle;
+                @ToggleObjectiveView.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleObjectiveView;
+                @ToggleObjectiveView.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleObjectiveView;
+                @ToggleObjectiveView.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleObjectiveView;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -861,6 +924,12 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @ToggleRifle.started += instance.OnToggleRifle;
                 @ToggleRifle.performed += instance.OnToggleRifle;
                 @ToggleRifle.canceled += instance.OnToggleRifle;
+                @ToggleObjectiveView.started += instance.OnToggleObjectiveView;
+                @ToggleObjectiveView.performed += instance.OnToggleObjectiveView;
+                @ToggleObjectiveView.canceled += instance.OnToggleObjectiveView;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1021,6 +1090,8 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnToggleRifle(InputAction.CallbackContext context);
+        void OnToggleObjectiveView(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

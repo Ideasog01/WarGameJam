@@ -99,6 +99,11 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
+        if (GameManager.interactItem.IsObjectiveAndIsActive)
+        {
+            GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.TalkToCharacter);
+        }
+
         _dialogueTrigger.NPCCamera.SetActive(false);
 
         dialogueCanvas.SetActive(false);
