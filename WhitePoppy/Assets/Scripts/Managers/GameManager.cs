@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static ObjectiveManager objectiveManager;
 
+    public static SoundSystem soundSystem;
+
     public static bool gameInProgress = true;
 
     private PlayerInterface playerInterface;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         playerController = GameObject.Find("Player");
+        soundSystem = GameObject.Find("GameManager").GetComponent<SoundSystem>();
 
         if (combatScene)
         {

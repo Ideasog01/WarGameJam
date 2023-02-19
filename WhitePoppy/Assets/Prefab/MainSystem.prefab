@@ -8286,7 +8286,6 @@ GameObject:
   - component: {fileID: 3034370600664721356}
   - component: {fileID: 3202318084575814165}
   - component: {fileID: 4525239890541107868}
-  - component: {fileID: 1774890390926519694}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -8302,7 +8301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3078251867435566314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.8720818, y: 10.255994, z: -11.178374}
+  m_LocalPosition: {x: 152.7737, y: 10.639994, z: 136.02321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8410,7 +8409,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 9120635823350179843}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4161
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 1
@@ -8455,24 +8454,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1774890390926519694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3078251867435566314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c0f934b49b9c4438b15f9d205c3862, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 091e64d0da8610d46ac2c39552c05c93, type: 2}
-  musicSource:
-  - {fileID: 0}
-  soundEffectsSource: []
-  loopedAudioFX: []
-  TriggerAudioFX: []
 --- !u!1 &3092738870465756083
 GameObject:
   m_ObjectHideFlags: 0
@@ -16323,6 +16304,51 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   characterMesh: {fileID: 637361894981708189}
+  fireSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: d0fce3bfe3c70234baeb76b46b202f77, type: 3}
+    attachPoint: {fileID: 6365226944991156123}
+    minWaitTime: 0
+    maxWaitTime: 0
+  reloadSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 7f93336545504234cbf53ece595dba61, type: 3}
+    attachPoint: {fileID: 6365226944991156123}
+    minWaitTime: 0
+    maxWaitTime: 0
+  damageSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 541dbe29cb83c7946956d52732c7701f, type: 3}
+    attachPoint: {fileID: 6365226944991156123}
+    minWaitTime: 0
+    maxWaitTime: 0
+  deathSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 06c9627e4ce10fa4997cc10e19039978, type: 3}
+    attachPoint: {fileID: 6365226944991156123}
+    minWaitTime: 0
+    maxWaitTime: 0
+  toggleRifleSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 7f93336545504234cbf53ece595dba61, type: 3}
+    attachPoint: {fileID: 6365226944991156123}
+    minWaitTime: 0
+    maxWaitTime: 0
 --- !u!143 &5989229510845861163
 CharacterController:
   m_ObjectHideFlags: 0
@@ -16357,7 +16383,7 @@ MonoBehaviour:
   SprintSpeed: 6
   RotationSpeed: 1
   SpeedChangeRate: 10
-  JumpHeight: 1.2
+  JumpHeight: 0.5
   Gravity: -15
   JumpTimeout: 0.1
   FallTimeout: 0.15
@@ -21600,6 +21626,7 @@ GameObject:
   - component: {fileID: 7949440880176801804}
   - component: {fileID: 7949440880176801805}
   - component: {fileID: 5416557882004596473}
+  - component: {fileID: 6031043398256174373}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -21825,6 +21852,21 @@ MonoBehaviour:
   objectiveIndex: 0
   objectiveAnimator: {fileID: 2853868383665459869}
   autoSceneTransition: 1
+--- !u!114 &6031043398256174373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7949440880176801802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c0f934b49b9c4438b15f9d205c3862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 091e64d0da8610d46ac2c39552c05c93, type: 2}
+  audioSourcePrefab: {fileID: 1387644236944196806, guid: 44ae0c1e386de1f45bb1a808d6193171, type: 3}
+  environmentSounds: []
 --- !u!1 &7949440880402206035
 GameObject:
   m_ObjectHideFlags: 0
