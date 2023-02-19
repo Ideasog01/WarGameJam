@@ -10,6 +10,7 @@ public class Letter : InteractItem
     [SerializeField]
     private string letterAddressee;
 
+    [TextArea(5, 20)]
     [SerializeField]
     private string letterContent;
 

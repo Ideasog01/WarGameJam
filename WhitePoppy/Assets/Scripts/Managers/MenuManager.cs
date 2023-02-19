@@ -12,12 +12,12 @@ public class MenuManager : MonoBehaviour
 
         if(levelToLoad == 0)
         {
-            SceneManager.LoadScene(1);
             PlayerPrefs.SetInt("level", 1);
+            SceneManager.LoadScene(6);
         }
         else
         {
-            SceneManager.LoadScene(levelToLoad);
+            SceneManager.LoadScene(6);
         }
     }
 
