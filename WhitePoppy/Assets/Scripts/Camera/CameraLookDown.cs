@@ -16,13 +16,16 @@ public class CameraLookDown : MonoBehaviour
     [SerializeField]
     private bool isObjectiveAndIsActive;
 
+    public bool IsObjectiveAndIsActive { get => isObjectiveAndIsActive; set => isObjectiveAndIsActive = value; }
+
     private GameObject player;
     #endregion
 
     //Ignore the repeatitive code :D 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<FirstPersonController>().isCarrying)
+        if (other.gameObject.tag == "Player" && !other.gameObject.GetComponent<FirstPersonController>().isCarrying &&
+            this.tag == "PickUpArea")
         {
             player = other.gameObject;
             FirstPersonController.isMoving = false;
@@ -33,7 +36,8 @@ public class CameraLookDown : MonoBehaviour
             StartCoroutine(LookDown());
 
         }
-        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying)
+        else if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<FirstPersonController>().isCarrying &&
+            this.tag == "DropOffArea")
         {
             player = other.gameObject;
             FirstPersonController.isMoving = false;

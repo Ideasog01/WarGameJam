@@ -122,6 +122,7 @@ public class PlayerInterface : MonoBehaviour
         if(GameManager.interactItem.IsObjectiveAndIsActive)
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+            GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
         // Transition to the scene

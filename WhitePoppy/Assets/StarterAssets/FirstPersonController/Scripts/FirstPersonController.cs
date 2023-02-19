@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
+
 #endif
 
 namespace StarterAssets
@@ -77,9 +79,8 @@ namespace StarterAssets
 
 
         /// <summary>
-        ///  NEW SECTION
+        ///  Player Modifications
         /// </summary>
-        /// 
         [SerializeField]
         private float crouchSpeed = 1.0f;
 		private float targetSpeed;
@@ -129,6 +130,7 @@ namespace StarterAssets
                 JumpAndGravity();
                 GroundedCheck();
                 Move();
+				Crouch();
             }
 		}
 
@@ -291,5 +293,14 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+		void Crouch()
+		{
+			if (_input.crouch)
+			{
+				this.transform.position = new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z);
+			}
+		}
 	}
+
 }
