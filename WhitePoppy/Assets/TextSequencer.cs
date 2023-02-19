@@ -14,9 +14,6 @@ public class TextSequencer : MonoBehaviour
     private string[] textArray;
 
     [SerializeField]
-    private UnityEvent sequenceCompleteEvents;
-
-    [SerializeField]
     private Animator textAnimator;
 
     private bool _isActivated;
@@ -32,7 +29,14 @@ public class TextSequencer : MonoBehaviour
     {
         if(_isActivated)
         {
-            StartCoroutine(DelayDisplay());
+            if(_index + 1 == textArray.Length)
+            {
+                textAnimator.SetTrigger("prefaceOutro");
+            }
+            else
+            {
+                StartCoroutine(DelayDisplay());
+            }
         }
         else
         {
@@ -43,17 +47,9 @@ public class TextSequencer : MonoBehaviour
 
     private IEnumerator DelayDisplay()
     {
-        
-
         textAnimator.SetTrigger("prefaceNext");
 
         yield return new WaitForSeconds(1f);
-
-        if (_index >= textArray.Length - 1)
-        {
-            sequenceCompleteEvents.Invoke();
-            yield return null;
-        }
 
         _index++;
         descriptionText.text = textArray[_index];
