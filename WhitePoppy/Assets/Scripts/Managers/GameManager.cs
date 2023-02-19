@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     public static InteractItem interactItem;
 
-    public static SoldierCharacter playerController;
+    public static GameObject playerController;
 
     public static ObjectiveManager objectiveManager;
 
@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(combatScene)
+        playerController = GameObject.Find("Player");
+
+        if (combatScene)
         {
-            playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+           
             objectiveManager = this.GetComponent<ObjectiveManager>();
 
             if(playerController == null)
