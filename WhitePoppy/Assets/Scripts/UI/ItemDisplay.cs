@@ -83,6 +83,7 @@ public class ItemDisplay : MonoBehaviour
         if (GameManager.interactItem.IsObjectiveAndIsActive)
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+            GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
         // Transition to the scene
