@@ -22,6 +22,7 @@ public class SoldierCharacter : BaseCharacter
         Cursor.visible = false;
         _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
         _playerInterface.UpdateHealth(Health, MaxHealth);
+        soundSystem = GameObject.Find("MainCamera").GetComponent<SoundSystem>();      
     }
 
     public void Fire()

@@ -42,28 +42,41 @@ public class SoundSystem : MonoBehaviour
     //[SerializeField]
     //private float volumeMax;
 
-
     private void Awake()
     {
         //// Set the volume of the game to the last saved volume
         //audioMixer.SetFloat("Volume", PlayerPrefs.GetFloat("Volume", 0));
 
+        SceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        SceneIndex = 3; //SceneManager.GetActiveScene().buildIndex;
+        // get current scene index
+        // if scene index = 0, play menu music
+        // if scene index = 1, play level 1 music
+        // if scene index = 2, play level 2 music
+        // if scene index = 3, play level 3 music
+        // if scene index = 4, play level 4 music
 
-        PlayMusic(SceneIndex);
+        // MAIN MENU 0
+        // LEVEL 1 1
+        // LEVEL 2 2
+        // LEVEL 3 3
+        // LEVEL 4 4
 
-        
-        PlayLoopedSFX(0); // rain
-        //PlayLoopedSFX(1); // wind
+        PlayMusic(SceneIndex -1);
 
-        StartCoroutine(DistantSFXTimer(2, 1, 8)); // transformed explosions
-        StartCoroutine(VariableMunitonSFX(3, 3, 40)); // distant explosions
-        StartCoroutine(DistantSFXTimer(4, 10, 80)); // thunder
-        StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
-        StartCoroutine(VariableMunitonSFX(6, 1, 10)); // bullet flyby
-        StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots transformed
-        StartCoroutine(VariableMunitonSFX(8, 1, 4)); // distant gunfire
+        if (SceneIndex == 4)
+        {
+            PlayLoopedSFX(0); // rain
+            //PlayLoopedSFX(1); // wind
+
+            StartCoroutine(DistantSFXTimer(2, 1, 8)); // transformed explosions
+            StartCoroutine(VariableMunitonSFX(3, 3, 40)); // distant explosions
+            StartCoroutine(DistantSFXTimer(4, 10, 80)); // thunder
+            StartCoroutine(DistantSFXTimer(5, 15, 40)); // machinegun
+            StartCoroutine(VariableMunitonSFX(6, 1, 10)); // bullet flyby
+            StartCoroutine(DistantSFXTimer(7, 1, 3)); // potshots transformed
+            StartCoroutine(VariableMunitonSFX(8, 1, 4)); // distant gunfire
+        }
     }
 
     // Modular timer that plays the distant SFX at random intervals
@@ -117,7 +130,6 @@ public class SoundSystem : MonoBehaviour
     {
         // Play the sound effect
         soundEffectsSource[soundEffect].Play();
-        soundEffectsSource[soundEffect].loop = false;
     }
 
 
@@ -137,6 +149,7 @@ public class SoundSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //// Update the volume slider and text
         //volume = PlayerPrefs.GetFloat("Volume", 0);
         //volumeSlider.value = volume;
