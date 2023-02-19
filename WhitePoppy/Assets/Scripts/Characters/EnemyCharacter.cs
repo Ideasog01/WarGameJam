@@ -47,7 +47,7 @@ public class EnemyCharacter : BaseCharacter
 
     private void LookAtPlayer()
     {
-        Debug.Log("Looking at player!");
+        //Debug.Log("Looking at player!");
         this.transform.LookAt(_soldierCharacter.transform.position);
         this.transform.eulerAngles = new Vector3(0, this.transform.eulerAngles.y, 0);
     }
