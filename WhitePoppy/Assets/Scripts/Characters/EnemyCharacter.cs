@@ -12,6 +12,8 @@ public class EnemyCharacter : BaseCharacter
 
     private SoldierCharacter _soldierCharacter;
 
+    private SoundSystem soundSystem;
+
     private bool _isInAttackRange;
 
     private void Start()
@@ -28,6 +30,7 @@ public class EnemyCharacter : BaseCharacter
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, SpawnPos.eulerAngles, ProjectileMovementSpeed, true, ProjectileDuration, ProjectileDamage);
             CharacterAnimator.SetTrigger("fire");
             Ammo--;
+            soundSystem.PlaySoundEffect(0);
         }
     }
 
@@ -116,5 +119,8 @@ public class EnemyCharacter : BaseCharacter
         _navMeshAgent.enabled = false;
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
+        
+        soundSystem.PlaySoundEffect(3);
+
     }
 }
