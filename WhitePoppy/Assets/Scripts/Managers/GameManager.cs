@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitBeforeSceneTransition()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene((int)levelToLoad);
+        PlayerPrefs.SetInt("level", (int)levelToLoad);
+        SceneManager.LoadScene(6);
     }
 }
