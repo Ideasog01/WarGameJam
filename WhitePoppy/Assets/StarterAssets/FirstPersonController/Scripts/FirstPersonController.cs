@@ -296,10 +296,14 @@ namespace StarterAssets
 
 		void Crouch()
 		{
-			if (_input.crouch)
+			if (_input.crouch && !_input.jump)
 			{
-				this.transform.position = new Vector3(transform.position.x, transform.position.y - 0.2f, transform.position.z);
+				this.GetComponent<CharacterController>().height = 1.2f;
 			}
+			else
+			{
+                this.GetComponent<CharacterController>().height = 2f;
+            }
 		}
 	}
 

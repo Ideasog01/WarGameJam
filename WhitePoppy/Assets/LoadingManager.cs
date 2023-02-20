@@ -23,7 +23,6 @@ public class LoadingManager : MonoBehaviour
     private void Start()
     {
         LoadLevel();
-
         Debug.Log("LOADING BEGAN! Loading value: " + _currentLoadingValue);
     }
 
