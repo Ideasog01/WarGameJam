@@ -8235,8 +8235,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3078251867435566314}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.8720818, y: 10.255994, z: -11.178374}
+  m_LocalRotation: {x: -0, y: -0.35234392, z: -0, w: 0.93587065}
+  m_LocalPosition: {x: 152.70709, y: 10.639994, z: 135.99814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16397,8 +16397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 4
-  SprintSpeed: 6
+  MoveSpeed: 7
+  SprintSpeed: 9
   RotationSpeed: 1
   SpeedChangeRate: 10
   JumpHeight: 0.5
@@ -16414,7 +16414,7 @@ MonoBehaviour:
   CinemachineCameraTarget: {fileID: 2155007296083915898}
   TopClamp: 89
   BottomClamp: -89
-  crouchSpeed: 1
+  crouchSpeed: 4
   isCarrying: 0
 --- !u!114 &4611241654869485521
 MonoBehaviour:
@@ -21839,6 +21839,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+    checkpointPosition: {x: 0, y: 0, z: 0}
   - objectiveDescription: Find the cubes.
     displayProgression: 1
     objectiveType: 3
@@ -21859,6 +21860,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+    checkpointPosition: {x: 0, y: 0, z: 0}
   - objectiveDescription: Talk to the NPC
     displayProgression: 0
     objectiveType: 5
@@ -21867,7 +21869,7 @@ MonoBehaviour:
     completeEvents:
       m_PersistentCalls:
         m_Calls: []
-  objectiveIndex: 0
+    checkpointPosition: {x: 0, y: 0, z: 0}
   objectiveAnimator: {fileID: 2853868383665459869}
   autoSceneTransition: 1
 --- !u!114 &6031043398256174373

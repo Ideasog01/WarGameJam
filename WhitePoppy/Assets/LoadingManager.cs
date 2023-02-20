@@ -42,6 +42,7 @@ public class LoadingManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        ObjectiveManager.objectiveIndex = 0;
         StartCoroutine(LoadASync());
     }
 

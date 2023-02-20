@@ -11,8 +11,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField]
     private Objective[] objectiveList;
 
-    [SerializeField]
-    private int objectiveIndex;
+    public static int objectiveIndex;
 
     [SerializeField]
     private Animator objectiveAnimator;
@@ -35,6 +34,11 @@ public class ObjectiveManager : MonoBehaviour
         if(objectiveList.Length > 0)
         {
             currentObjective = objectiveList[objectiveIndex];
+
+            if(currentObjective.CheckpointPosition != Vector3.zero)
+            {
+                GameManager.playerController.transform.localPosition = currentObjective.CheckpointPosition;
+            }
         }
     }
 
@@ -99,6 +103,9 @@ public struct Objective
     [SerializeField]
     private UnityEvent completeEvents;
 
+    [SerializeField]
+    private Vector3 checkpointPosition;
+
     public string ObjectiveDescription
     {
         get { return objectiveDescription; }
@@ -128,5 +135,10 @@ public struct Objective
     public UnityEvent CompleteEvents
     {
         get { return completeEvents; }
+    }
+
+    public Vector3 CheckpointPosition
+    {
+        get { return checkpointPosition; }
     }
 }
