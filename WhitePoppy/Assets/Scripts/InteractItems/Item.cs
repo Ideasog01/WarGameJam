@@ -8,10 +8,13 @@ public class Item : InteractItem
     private Mesh itemMesh;
 
     [SerializeField]
-    private Material itemMaterial;
+    private Material[] itemMaterial;
 
     [SerializeField]
     private Vector3 itemScale;
+
+    [SerializeField]
+    private Vector3 itemRotation;
 
     [SerializeField]
     private string itemName;
@@ -28,7 +31,7 @@ public class Item : InteractItem
 
     public void InteractItem()
     {
-        _itemDisplay.DisplayItem(itemMesh, itemMaterial, itemScale, itemDescription, itemName, this.transform.GetChild(0).gameObject);
+        _itemDisplay.DisplayItem(itemMesh, itemMaterial, itemScale, itemRotation, itemDescription, itemName, this.transform.GetChild(0).gameObject);
         PlayerInterface.DisplayInteractButton(false);
         GameManager.levelToLoad = levelToLoadByItemRef;
     }

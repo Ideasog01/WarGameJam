@@ -37,15 +37,16 @@ public class ItemDisplay : MonoBehaviour
         gameManager = this.GetComponent<GameManager>();
     }
 
-    public void DisplayItem(Mesh itemMesh, Material material, Vector3 scale, string itemDescription, string itemName, GameObject itemMeshObj)
+    public void DisplayItem(Mesh itemMesh, Material[] material, Vector3 scale, Vector3 rotation, string itemDescription, string itemName, GameObject itemMeshObj)
     {
         itemObj.SetActive(true);
         itemDisplayCanvas.SetActive(true);
 
-        itemObj.transform.localScale = scale;
+        itemObj.transform.GetChild(0).localScale = scale;
+        itemObj.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
 
         meshFilter.mesh = itemMesh;
-        meshRenderer.material = material;
+        meshRenderer.materials = material;
 
         itemDescriptionText.text = itemDescription;
         itemNameText.text = itemName;
@@ -91,6 +92,11 @@ public class ItemDisplay : MonoBehaviour
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
             GameManager.interactItem.IsObjectiveAndIsActive = false;
+        }
+
+        if (GameManager.interactItem.IsHouseItem)
+        {
+            SaveManager.IncreaseItemCollection();
         }
 
         // Transition to the scene
