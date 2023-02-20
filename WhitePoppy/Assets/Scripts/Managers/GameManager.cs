@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
         }
 
         playerInterface = this.GetComponent<PlayerInterface>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public static void EnableCamera(bool active)
