@@ -2450,7 +2450,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 600, y: 800}
+  m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1391763733
 MonoBehaviour:
@@ -2473,7 +2473,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "3D Assets House level royalty free from cgtrader.com , turbosquid.com,
-    polyhaven.com\nWW2 Crew Weapon Granatwerfer 36 Demo \u2013 Andrew Pray\r\nWeapon
+    polyhaven.com;\r\nWW2 Crew Weapon Granatwerfer 36 Demo \u2013 Andrew Pray\r\nWeapon
     Box \u2013 TechLevel\r\nMilitary Shooter Music Pack \u2013 Augusto mazzoli\r\nWW1
     Trenches HDRP \u2013 Craft Studios\r\nPBR Exterior pack: 5 stones \u2013 CaptainCatSarrows\r\nScan
     Stump Vol.1 \u2013 GreenBugGames\r\nDry Trees \u2013 DigitalantiChrist\r\nWorld
@@ -2483,7 +2483,8 @@ MonoBehaviour:
     Ground Textures - A dog's life software\r\nSimple Wall Lamp \u2013 FlatRiver\r\nOld
     \"USSR\" Lamp \u2013 Essplashkid\r\nRock package - shui861wy\r\nRock and Boulders
     2 - Manufactura K4\r\nVintage rifle - Western model - Dim Lit Studio\r\nSandbags
-    Cover - Beatheart Creative Studio\r\nWW1 Soldier - Alexey_Afanasev\r"
+    Cover - Beatheart Creative Studio\r\nWW1 Soldier - Alexey_Afanasev\r\nBurned
+    Wasteland - Seamless Texture with normalmap \u2013 By Keith333\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7c574715cd62021449d0690069779c29, type: 2}
   m_sharedMaterial: {fileID: 7425696774033822326, guid: 7c574715cd62021449d0690069779c29, type: 2}
@@ -3140,7 +3141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1504752130
 MonoBehaviour:
   m_ObjectHideFlags: 0
