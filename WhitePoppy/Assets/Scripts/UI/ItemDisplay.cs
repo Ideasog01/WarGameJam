@@ -1,6 +1,7 @@
 using StarterAssets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemDisplay : MonoBehaviour
 {
@@ -74,7 +75,10 @@ public class ItemDisplay : MonoBehaviour
         FirstPersonController.isMoving = true;
         GameManager.EnableCamera(true);
 
-        _itemMesh.SetActive(true);
+        if(!GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            _itemMesh.SetActive(true);
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;

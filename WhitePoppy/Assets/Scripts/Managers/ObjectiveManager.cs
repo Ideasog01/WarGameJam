@@ -39,6 +39,11 @@ public class ObjectiveManager : MonoBehaviour
             {
                 GameManager.playerController.transform.localPosition = currentObjective.CheckpointPosition;
             }
+
+            if(objectiveIndex > 0)
+            {
+                objectiveList[objectiveIndex - 1].CompleteEvents.Invoke();
+            }
         }
     }
 

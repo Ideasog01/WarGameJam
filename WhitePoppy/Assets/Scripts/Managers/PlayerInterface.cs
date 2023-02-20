@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using StarterAssets;
+using UnityEngine.SceneManagement;
 
 public class PlayerInterface : MonoBehaviour
 {
@@ -113,9 +114,19 @@ public class PlayerInterface : MonoBehaviour
         GameManager.EnableCamera(true);
         FirstPersonController.isMoving = true;
         letterCanvas.SetActive(false);
-        letterMesh.SetActive(true);
+
+        if (!GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            letterMesh.SetActive(true);
+            DisplayInteractButton(true);
+        }
+        else
+        {
+            GameManager.interactItem.ItemEnabled = false;
+        }
+
         letterMesh = null;
-        DisplayInteractButton(true);
+        
         SoldierCharacter.disableCombatMechanics = false;
 
         if(GameManager.interactItem.IsObjectiveAndIsActive)

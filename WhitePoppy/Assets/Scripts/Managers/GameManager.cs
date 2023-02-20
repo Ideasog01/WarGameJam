@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool combatScene = true;
 
+    [SerializeField]
+    private Animator endCanvas;
+
     private void Awake()
     {
         playerController = GameObject.Find("Player");
@@ -95,6 +98,12 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void TransitionToEndScreen()
+    {
+        endCanvas.SetTrigger("active");
+        SceneManager.LoadScene(5);
     }
 
     IEnumerator WaitBeforeSceneTransition()

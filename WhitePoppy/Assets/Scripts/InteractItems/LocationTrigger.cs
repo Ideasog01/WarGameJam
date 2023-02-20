@@ -8,6 +8,9 @@ public class LocationTrigger : MonoBehaviour
     [SerializeField]
     private bool isEnabled = true;
 
+    [SerializeField]
+    private bool isEnd;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -24,5 +27,11 @@ public class LocationTrigger : MonoBehaviour
     {
         GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.ReachLocation);
         Debug.Log("Yay!");
+
+        if (isEnd)
+        {
+            GameObject.Find("GameManager").GetComponent<GameManager>().TransitionToEndScreen();
+        }
+        
     }
 }
