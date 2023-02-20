@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoldierCharacter : BaseCharacter
 {
@@ -37,6 +38,14 @@ public class SoldierCharacter : BaseCharacter
         Cursor.visible = false;
         _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
         _playerInterface.UpdateHealth(Health, MaxHealth);
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            disableCombatMechanics = true;
+        }
     }
 
     public void Fire()

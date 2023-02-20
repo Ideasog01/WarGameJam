@@ -9,6 +9,8 @@ public class EnvironmentExplosions : MonoBehaviour
     [SerializeField]
     private GameObject explosionPrefab;
 
+    [SerializeField]
+    private float time;
 
     void Start()
     {
@@ -23,7 +25,8 @@ public class EnvironmentExplosions : MonoBehaviour
 
     IEnumerator Explosion()
     {
-        yield return new WaitForSeconds(1f);
+        time = Random.Range(0.5f, 2f);
+        yield return new WaitForSeconds(time);
 
         //Random number from the length of the explositionPosition
         int randomExplosion = Random.Range(0, explositionPosition.Count);
