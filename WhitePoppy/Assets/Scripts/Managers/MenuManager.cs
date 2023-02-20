@@ -6,21 +6,21 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject gameIntroCanvas;
 
+    [SerializeField]
+    private Animator creditsAnimator;
+
     public void StartGame()
     {
         int levelToLoad = PlayerPrefs.GetInt("level");
 
-        if(levelToLoad == 0)
-        {
-            PlayerPrefs.SetInt("level", 1);
-            SceneManager.LoadScene(6);
-        }
-        else
-        {
-            SceneManager.LoadScene(6);
-        }
+        PlayerPrefs.SetInt("level", 1);
+        SceneManager.LoadScene(6);
     }
 
+    public void ActivateCredits()
+    {
+        creditsAnimator.SetTrigger("activate");
+    }
 
     public void QuitApplication()
     {
