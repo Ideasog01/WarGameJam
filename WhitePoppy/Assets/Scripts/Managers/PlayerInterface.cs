@@ -120,7 +120,8 @@ public class PlayerInterface : MonoBehaviour
             letterMesh.SetActive(true);
             DisplayInteractButton(true);
         }
-        else
+        
+        if(GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex == 4)
         {
             GameManager.interactItem.ItemEnabled = false;
         }
