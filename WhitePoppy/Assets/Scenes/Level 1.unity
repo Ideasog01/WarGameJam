@@ -45655,7 +45655,7 @@ MonoBehaviour:
   - {fileID: 710785539}
   - {fileID: 916874867}
   - {fileID: 430099294}
-  resetData: 1
+  resetData: 0
 --- !u!4 &9103997403095324420
 Transform:
   m_ObjectHideFlags: 0

@@ -4195,7 +4195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909666769523494943}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.7, y: 0.175, z: 0}
+  m_LocalPosition: {x: -0.7, y: 0.175, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9810,37 +9810,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.30338627, y: -0.0020757504, z: -0.012341037}
     m_Extent: {x: 0.15912852, y: 0.05591885, z: 0.018811502}
   m_DirtyAABB: 0
---- !u!1 &1909666770310973943
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1909666770310973940}
-  m_Layer: 0
-  m_Name: SpawnPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1909666770310973940
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909666770310973943}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.6822, y: 0.1814, z: 0.0101}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1909666770332264434}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1909666770312107008
 GameObject:
   m_ObjectHideFlags: 0
@@ -10002,7 +9971,6 @@ Transform:
   - {fileID: 1909666770966799540}
   - {fileID: 1909666769362743662}
   - {fileID: 1909666769523494940}
-  - {fileID: 1909666770310973940}
   m_Father: {fileID: 1909666770700387543}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -26.603, y: 76.284, z: 32.848}
@@ -11749,11 +11717,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   projectilePrefab: {fileID: 8167338561785293248, guid: 3366aa6ebc7a2194da5a579367389e44, type: 3}
-  spawnPos: {fileID: 1909666770310973940}
+  spawnPos: {fileID: 1909666769523494940}
   characterAnimator: {fileID: 1909666770577048255}
   projectileMovementSpeed: 20
   projectileDuration: 4
-  projectileDamage: 40
+  projectileDamage: 10
   maxAmmo: 10
   reloadTime: 1.8
   fireCooldown: 1.2
@@ -11822,7 +11790,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 1
+  m_BaseOffset: 0.98
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!136 &1909666770530647512
@@ -11836,7 +11804,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1909666770547267785

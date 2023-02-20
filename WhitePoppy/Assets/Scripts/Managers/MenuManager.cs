@@ -3,11 +3,25 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    public static bool startUp;
+
     [SerializeField]
     private GameObject gameIntroCanvas;
 
     [SerializeField]
     private Animator creditsAnimator;
+
+    private void Awake()
+    {
+        if(!startUp)
+        {
+            startUp = true;
+        }
+        else
+        {
+            gameIntroCanvas.SetActive(false);
+        }
+    }
 
     public void StartGame()
     {

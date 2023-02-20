@@ -53,11 +53,14 @@ public class ObjectiveManager : MonoBehaviour
 
             objectiveIndex++;
 
-            if(objectiveIndex >= objectiveList.Length && autoSceneTransition)
+            if(objectiveIndex >= objectiveList.Length)
             {
-                GameManager.levelToLoad = InteractItem.LevelToLoadByItem.House;
-                _gameManager.LoadSceneTransition();
-                return;
+                if (autoSceneTransition)
+                {
+                    GameManager.levelToLoad = InteractItem.LevelToLoadByItem.House;
+                    _gameManager.LoadSceneTransition();
+                    return;
+                }
             }
             else
             {

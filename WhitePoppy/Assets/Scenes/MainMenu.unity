@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75773a12e37ac1243a533346a73b9a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameIntroCanvas: {fileID: 1490622205}
+  gameIntroCanvas: {fileID: 1504752128}
   creditsAnimator: {fileID: 776035649}
 --- !u!114 &227388089
 MonoBehaviour:

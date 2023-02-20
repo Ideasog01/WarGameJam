@@ -18426,8 +18426,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5416557882004596473, guid: 71db2b67cd8490743ad3b03cbc65e078, type: 3}
       propertyPath: objectiveList.Array.data[4].objectiveDescription
-      value: Recover the wounded soldier out from the crater. Take him to an empty
-        bed in the trench.
+      value: Recover the wounded soldier from the crater. Take him to an empty bed
+        in the trench.
       objectReference: {fileID: 0}
     - target: {fileID: 5416557882004596473, guid: 71db2b67cd8490743ad3b03cbc65e078, type: 3}
       propertyPath: objectiveList.Array.data[5].objectiveDescription

@@ -47,6 +47,8 @@ public class LoadingManager : MonoBehaviour
 
     IEnumerator LoadASync()
     {
+        yield return new WaitForSeconds(1);
+
         _operation = SceneManager.LoadSceneAsync(PlayerPrefs.GetInt("level"));
         _operation.allowSceneActivation = false;
 

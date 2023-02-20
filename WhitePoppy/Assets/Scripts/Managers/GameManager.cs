@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetScene()
     {
+        gameInProgress = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

@@ -50,7 +50,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void Fire()
     {
-        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf)
+        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf && GameManager.gameInProgress)
         {
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, Vector3.zero, ProjectileMovementSpeed, false, ProjectileDuration, ProjectileDamage);
             Ammo--;
@@ -63,7 +63,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void Reload()
     {
-        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf)
+        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf && GameManager.gameInProgress)
         {
             CharacterAnimator.SetTrigger("reload");
             Ammo = 0;
@@ -107,8 +107,11 @@ public class SoldierCharacter : BaseCharacter
 
     public void ToggleRifle()
     {
-        if(!disableCombatMechanics)
+        if(!disableCombatMechanics && GameManager.gameInProgress)
+        {
             characterMesh.SetActive(!characterMesh.activeSelf);
-        GameManager.soundSystem.PlaySound(toggleRifleSound);
+            GameManager.soundSystem.PlaySound(toggleRifleSound);
+        }
+            
     }
 }
