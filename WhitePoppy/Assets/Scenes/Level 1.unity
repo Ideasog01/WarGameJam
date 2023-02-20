@@ -45596,6 +45596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatScene: 0
+  endCanvas: {fileID: 0}
 --- !u!114 &9103997402363299104
 MonoBehaviour:
   m_ObjectHideFlags: 0
