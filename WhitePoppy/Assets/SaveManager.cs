@@ -7,8 +7,16 @@ public class SaveManager : MonoBehaviour
     [SerializeField]
     private GameObject[] itemArray;
 
+    [SerializeField]
+    private bool resetData;
+
     private void Awake()
     {
+        if(resetData)
+        {
+            PlayerPrefs.SetInt("itemCount", 0);
+        }
+
         int itemCount = PlayerPrefs.GetInt("itemCount");
 
         switch(itemCount)

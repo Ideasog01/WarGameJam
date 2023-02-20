@@ -45637,7 +45637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 091e64d0da8610d46ac2c39552c05c93, type: 2}
-  audioSourcePrefab: {fileID: 0}
+  audioSourcePrefab: {fileID: 1387644236944196806, guid: 44ae0c1e386de1f45bb1a808d6193171, type: 3}
   environmentSounds: []
 --- !u!114 &9103997402363299106
 MonoBehaviour:
@@ -45655,6 +45655,7 @@ MonoBehaviour:
   - {fileID: 710785539}
   - {fileID: 916874867}
   - {fileID: 430099294}
+  resetData: 1
 --- !u!4 &9103997403095324420
 Transform:
   m_ObjectHideFlags: 0
