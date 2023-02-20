@@ -11733,7 +11733,7 @@ Transform:
   m_Children:
   - {fileID: 1909666770577048241}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1909666770530647514
 MonoBehaviour:
@@ -11772,7 +11772,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   rifleObj: {fileID: 1909666770332264437}
+  attackSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: d0fce3bfe3c70234baeb76b46b202f77, type: 3}
+    attachPoint: {fileID: 1909666770530647517}
+    minWaitTime: 0
+    maxWaitTime: 0
+  reloadSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 7f93336545504234cbf53ece595dba61, type: 3}
+    attachPoint: {fileID: 1909666770530647517}
+    minWaitTime: 0
+    maxWaitTime: 0
+  deathSound:
+    loopSound: 0
+    volume: 1
+    panStereo: 0
+    pitch: 1
+    audioClip: {fileID: 8300000, guid: 541dbe29cb83c7946956d52732c7701f, type: 3}
+    attachPoint: {fileID: 1909666770530647517}
+    minWaitTime: 0
+    maxWaitTime: 0
 --- !u!195 &1909666770530647515
 NavMeshAgent:
   m_ObjectHideFlags: 0

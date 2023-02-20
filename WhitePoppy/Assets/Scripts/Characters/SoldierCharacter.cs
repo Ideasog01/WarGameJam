@@ -82,6 +82,7 @@ public class SoldierCharacter : BaseCharacter
 
     public void OnTakeDamage()
     {
+        _playerInterface.UpdateHealth(Health, MaxHealth);
         _playerInterface.UpdateDamageScreen(Health);
         GameManager.soundSystem.PlaySound(damageSound);
     }

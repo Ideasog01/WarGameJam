@@ -38,6 +38,7 @@ public class EnemyCharacter : BaseCharacter
             CharacterAnimator.SetTrigger("fire");
             Ammo--;
             GameManager.soundSystem.PlaySound(attackSound);
+            FireDisabled = true;
         }
     }
 
@@ -105,7 +106,6 @@ public class EnemyCharacter : BaseCharacter
 
     private IEnumerator FireCooldown()
     {
-        FireDisabled = true;
         yield return new WaitForSeconds(FireCooldownRef);
         FireDisabled = false;
     }

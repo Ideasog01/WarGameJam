@@ -10,7 +10,7 @@ public class InteractItem : MonoBehaviour
     [SerializeField]
     private bool isHouseItem;
 
-    public enum LevelToLoadByItem {None, House, BattlefieldTrenches, ForestBattlefield, InvadedFacility}
+    public enum LevelToLoadByItem {None, House, BattlefieldTrenches, ForestBattlefield, InvadedFacility, End}
     
     [SerializeField]
     private LevelToLoadByItem levelToLoadByItem;
