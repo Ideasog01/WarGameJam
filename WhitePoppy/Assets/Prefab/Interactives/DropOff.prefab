@@ -33,7 +33,7 @@ Transform:
   - {fileID: 85763905299261337}
   - {fileID: 7515240433718966452}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &85763904541396040
 BoxCollider:
