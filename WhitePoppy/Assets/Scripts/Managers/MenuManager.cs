@@ -6,6 +6,9 @@ public class MenuManager : MonoBehaviour
     public static bool startUp;
 
     [SerializeField]
+    private GameObject introCanvas;
+
+    [SerializeField]
     private GameObject gameIntroCanvas;
 
     [SerializeField]
@@ -13,13 +16,14 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
-        if(!startUp)
+        if(startUp)
         {
-            startUp = true;
+            introCanvas.SetActive(false);
+            gameIntroCanvas.SetActive(false);
         }
         else
         {
-            gameIntroCanvas.SetActive(false);
+            startUp = true;
         }
     }
 
@@ -28,7 +32,13 @@ public class MenuManager : MonoBehaviour
         int levelToLoad = PlayerPrefs.GetInt("level");
 
         PlayerPrefs.SetInt("level", 1);
+        GameManager.levelToLoad = InteractItem.LevelToLoadByItem.House;
         SceneManager.LoadScene(6);
+    }
+
+    public void ResetGameData()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     public void ActivateCredits()
@@ -39,5 +49,21 @@ public class MenuManager : MonoBehaviour
     public void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void StartGameButton()
+    {
+        int levelToLoad = PlayerPrefs.GetInt("level");
+
+        if(levelToLoad > 0) //Then the game has been played before, so move to the next scene immediately
+        {
+            GameManager.levelToLoad = (InteractItem.LevelToLoadByItem)levelToLoad;
+            SceneManager.LoadScene(6);
+        }
+        else
+        {
+            gameIntroCanvas.SetActive(true);
+            this.GetComponent<TextSequencer>().Quote();
+        }
     }
 }

@@ -65,6 +65,8 @@ public class ItemDisplay : MonoBehaviour
         {
             crossHair.SetActive(false);
         }
+
+        GameManager.isInteracting = true;
     }
 
     public void ExitItem()
@@ -98,13 +100,10 @@ public class ItemDisplay : MonoBehaviour
             GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
-        if (GameManager.interactItem.IsHouseItem)
-        {
-            SaveManager.IncreaseItemCollection();
-        }
-
         // Transition to the scene
         gameManager.LoadSceneTransition();
+
+        GameManager.isInteracting = false;
     }
 
     private void Update()

@@ -24,7 +24,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         {
             if (scene.buildIndex == index)
             {
-                Destroy(this.gameObject);
+                this.GetComponent<AudioSource>().Stop();
             }
         }
     }

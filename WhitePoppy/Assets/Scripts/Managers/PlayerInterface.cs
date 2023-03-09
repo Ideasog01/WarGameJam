@@ -97,6 +97,7 @@ public class PlayerInterface : MonoBehaviour
         letterSender.text = sender;
 
         GameManager.EnableCamera(false);
+        GameManager.isInteracting = true;
         FirstPersonController.isMoving = false;
         
         letterMesh = meshObj;
@@ -136,13 +137,9 @@ public class PlayerInterface : MonoBehaviour
             GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
-        if(GameManager.interactItem.IsHouseItem)
-        {
-            SaveManager.IncreaseItemCollection();
-        }
-
         // Transition to the scene
         gameManager.LoadSceneTransition();
+        GameManager.isInteracting = false;
     }
 
     public static void DisplayInteractButton(bool active)

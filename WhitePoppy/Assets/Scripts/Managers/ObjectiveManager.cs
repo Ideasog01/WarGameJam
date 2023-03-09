@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class ObjectiveManager : MonoBehaviour
 {
@@ -66,6 +67,8 @@ public class ObjectiveManager : MonoBehaviour
             {
                 if (autoSceneTransition)
                 {
+                    PlayerPrefs.SetInt("levelIndex", SceneManager.GetActiveScene().buildIndex);
+                    SaveManager.IncreaseItemCollection();
                     GameManager.levelToLoad = InteractItem.LevelToLoadByItem.House;
                     _gameManager.LoadSceneTransition();
                     return;

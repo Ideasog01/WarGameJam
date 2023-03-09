@@ -24,6 +24,7 @@ public class LoadingManager : MonoBehaviour
     {
         LoadLevel();
         Debug.Log("LOADING BEGAN! Loading value: " + _currentLoadingValue);
+        Time.timeScale = 1f;
     }
 
     private void Update()
@@ -50,14 +51,14 @@ public class LoadingManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        _operation = SceneManager.LoadSceneAsync(PlayerPrefs.GetInt("level"));
+        _operation = SceneManager.LoadSceneAsync((int)GameManager.levelToLoad);
         _operation.allowSceneActivation = false;
 
         while (!_operation.isDone)
         {
             Debug.Log("LOADING PROGRESS: " + _operation.progress);
 
-            if (_currentLoadingValue == 1f)
+            if (_currentLoadingValue >= 1f)
             {
                 _operation.allowSceneActivation = true;
             }

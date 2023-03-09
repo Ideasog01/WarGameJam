@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public static bool gameInProgress = true;
 
+    public static bool isInteracting;
+
     private PlayerInterface playerInterface;
 
     [SerializeField]
@@ -75,27 +77,29 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if(gameInProgress)
+        if(!isInteracting)
         {
-            playerInterface.DisplayPauseMenu(true);
-            gameInProgress = false;
-            Time.timeScale = 0.0f;
-            EnableCamera(false);
-            SoldierCharacter.disableCombatMechanics = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            playerInterface.DisplayPauseMenu(false);
-            gameInProgress = true;
-            Time.timeScale = 1.0f;
-            EnableCamera(true);
-            SoldierCharacter.disableCombatMechanics = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-        }
+            if (gameInProgress)
+            {
+                playerInterface.DisplayPauseMenu(true);
+                gameInProgress = false;
+                Time.timeScale = 0.0f;
+                EnableCamera(false);
+                SoldierCharacter.disableCombatMechanics = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                playerInterface.DisplayPauseMenu(false);
+                gameInProgress = true;
+                Time.timeScale = 1.0f;
+                EnableCamera(true);
+                SoldierCharacter.disableCombatMechanics = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }    
     }
 
     public void ExitGame()
@@ -112,7 +116,6 @@ public class GameManager : MonoBehaviour
     IEnumerator WaitBeforeSceneTransition()
     {
         yield return new WaitForSeconds(2f);
-        PlayerPrefs.SetInt("level", (int)levelToLoad);
         SceneManager.LoadScene(6);
     }
 }

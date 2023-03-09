@@ -69,6 +69,7 @@ public class InputManager : MonoBehaviour
         }
 
         controls.Player.Pause.performed += ctx => _gameManager.PauseGame();
+        controls.Player.Fire.performed += ctx => MouseEntered();
     }
 
     private void OnEnable()
@@ -79,5 +80,14 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    public void MouseEntered() //Ensures that the mouse is visible with items/letters view when entering the screen window after 'alt + tab'
+    {
+        if(GameManager.isInteracting || !GameManager.gameInProgress)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

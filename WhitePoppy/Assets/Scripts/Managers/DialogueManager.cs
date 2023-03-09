@@ -53,6 +53,8 @@ public class DialogueManager : MonoBehaviour
         crossHair.SetActive(false);
         _dialogueTrigger.NPCCamera.SetActive(true);
         GameManager.EnableCamera(false);
+
+        GameManager.isInteracting = true;
     }
 
     public void NewDialogue(Dialogue dialogue)
@@ -115,6 +117,8 @@ public class DialogueManager : MonoBehaviour
         crossHair.SetActive(true);
 
         _dialogueTrigger = null;
+
+        GameManager.isInteracting = false;
     }
 
     public void DisplayChoices()
