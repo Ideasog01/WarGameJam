@@ -1,6 +1,7 @@
 using StarterAssets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemDisplay : MonoBehaviour
 {
@@ -37,15 +38,16 @@ public class ItemDisplay : MonoBehaviour
         gameManager = this.GetComponent<GameManager>();
     }
 
-    public void DisplayItem(Mesh itemMesh, Material material, Vector3 scale, string itemDescription, string itemName, GameObject itemMeshObj)
+    public void DisplayItem(Mesh itemMesh, Material[] material, Vector3 scale, Vector3 rotation, string itemDescription, string itemName, GameObject itemMeshObj)
     {
         itemObj.SetActive(true);
         itemDisplayCanvas.SetActive(true);
 
-        itemObj.transform.localScale = scale;
+        itemObj.transform.GetChild(0).localScale = scale;
+        itemObj.transform.GetChild(0).rotation = Quaternion.Euler(rotation);
 
         meshFilter.mesh = itemMesh;
-        meshRenderer.material = material;
+        meshRenderer.materials = material;
 
         itemDescriptionText.text = itemDescription;
         itemNameText.text = itemName;
@@ -59,7 +61,12 @@ public class ItemDisplay : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        crossHair.SetActive(false);
+        if(crossHair != null)
+        {
+            crossHair.SetActive(false);
+        }
+
+        GameManager.isInteracting = true;
     }
 
     public void ExitItem()
@@ -70,7 +77,10 @@ public class ItemDisplay : MonoBehaviour
         FirstPersonController.isMoving = true;
         GameManager.EnableCamera(true);
 
-        _itemMesh.SetActive(true);
+        if(!GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            _itemMesh.SetActive(true);
+        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -78,15 +88,22 @@ public class ItemDisplay : MonoBehaviour
         PlayerInterface.DisplayInteractButton(true);
         SoldierCharacter.disableCombatMechanics = false;
 
-        crossHair.SetActive(true);
+        if(crossHair != null)
+        {
+            crossHair.SetActive(true);
+        }
+        
 
         if (GameManager.interactItem.IsObjectiveAndIsActive)
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+            GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
+
+        GameManager.isInteracting = false;
     }
 
     private void Update()

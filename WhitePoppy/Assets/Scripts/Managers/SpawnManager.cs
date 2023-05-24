@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    obj.transform.eulerAngles = rotation;
+                    obj.transform.LookAt(GameManager.playerController.transform);
                 }
                 
                 obj.ResetProjectile(projectileSpeed, isEnemy, duration, damage);
@@ -45,7 +45,7 @@ public class SpawnManager : MonoBehaviour
             }
             else
             {
-                projectile.transform.eulerAngles = rotation;
+                projectile.transform.LookAt(GameManager.playerController.transform);
             }
 
             projectile.ResetProjectile(projectileSpeed, isEnemy, duration, damage);

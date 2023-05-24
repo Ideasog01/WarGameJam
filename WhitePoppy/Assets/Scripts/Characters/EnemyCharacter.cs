@@ -8,6 +8,15 @@ public class EnemyCharacter : BaseCharacter
     [SerializeField]
     private GameObject rifleObj;
 
+    [SerializeField]
+    private Sound attackSound;
+
+    [SerializeField]
+    private Sound reloadSound;
+
+    [SerializeField]
+    private Sound deathSound;
+
     private NavMeshAgent _navMeshAgent;
 
     private SoldierCharacter _soldierCharacter;
@@ -17,7 +26,7 @@ public class EnemyCharacter : BaseCharacter
     private void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
-        _soldierCharacter = GameManager.playerController;
+        _soldierCharacter = GameManager.playerController.GetComponent<SoldierCharacter>();
         _navMeshAgent.updateRotation = false;
     }
 
@@ -28,6 +37,8 @@ public class EnemyCharacter : BaseCharacter
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, SpawnPos.eulerAngles, ProjectileMovementSpeed, true, ProjectileDuration, ProjectileDamage);
             CharacterAnimator.SetTrigger("fire");
             Ammo--;
+            GameManager.soundSystem.PlaySound(attackSound);
+            FireDisabled = true;
         }
     }
 
@@ -95,7 +106,6 @@ public class EnemyCharacter : BaseCharacter
 
     private IEnumerator FireCooldown()
     {
-        FireDisabled = true;
         yield return new WaitForSeconds(FireCooldownRef);
         FireDisabled = false;
     }
@@ -108,6 +118,7 @@ public class EnemyCharacter : BaseCharacter
         yield return new WaitForSeconds(ReloadTime);
         Ammo = MaxAmmo;
         IsReloading = false;
+        GameManager.soundSystem.PlaySound(reloadSound);
     }
 
     public void OnDeath()
@@ -116,6 +127,8 @@ public class EnemyCharacter : BaseCharacter
         _navMeshAgent.enabled = false;
         this.GetComponent<CapsuleCollider>().enabled = false;
         rifleObj.SetActive(false);
+
+        GameManager.soundSystem.PlaySound(deathSound);
 
         GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.DefeatEnemy);
     }

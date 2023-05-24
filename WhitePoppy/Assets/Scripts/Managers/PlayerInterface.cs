@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using StarterAssets;
+using UnityEngine.SceneManagement;
 
 public class PlayerInterface : MonoBehaviour
 {
@@ -94,9 +95,9 @@ public class PlayerInterface : MonoBehaviour
         letterAddressee.text = addressee;
         letterContent.text = content;
         letterSender.text = sender;
-        
 
         GameManager.EnableCamera(false);
+        GameManager.isInteracting = true;
         FirstPersonController.isMoving = false;
         
         letterMesh = meshObj;
@@ -114,18 +115,31 @@ public class PlayerInterface : MonoBehaviour
         GameManager.EnableCamera(true);
         FirstPersonController.isMoving = true;
         letterCanvas.SetActive(false);
-        letterMesh.SetActive(true);
+
+        if (!GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex != 4)
+        {
+            letterMesh.SetActive(true);
+            DisplayInteractButton(true);
+        }
+        
+        if(GameManager.interactItem.IsObjectiveAndIsActive && SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            GameManager.interactItem.ItemEnabled = false;
+        }
+
         letterMesh = null;
-        DisplayInteractButton(true);
+        
         SoldierCharacter.disableCombatMechanics = false;
 
         if(GameManager.interactItem.IsObjectiveAndIsActive)
         {
             GameManager.objectiveManager.UpdateObjective(1, Objective.ObjectiveType.FindItem);
+            GameManager.interactItem.IsObjectiveAndIsActive = false;
         }
 
         // Transition to the scene
         gameManager.LoadSceneTransition();
+        GameManager.isInteracting = false;
     }
 
     public static void DisplayInteractButton(bool active)

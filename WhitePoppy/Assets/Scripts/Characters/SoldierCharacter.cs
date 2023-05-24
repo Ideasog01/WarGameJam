@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoldierCharacter : BaseCharacter
 {
@@ -10,6 +11,23 @@ public class SoldierCharacter : BaseCharacter
 
     [SerializeField]
     private GameObject characterMesh;
+
+    [Header("Sounds")]
+
+    [SerializeField]
+    private Sound fireSound;
+
+    [SerializeField]
+    private Sound reloadSound;
+
+    [SerializeField]
+    private Sound damageSound;
+
+    [SerializeField]
+    private Sound deathSound;
+
+    [SerializeField]
+    private Sound toggleRifleSound;
 
     private PlayerInterface _playerInterface;
 
@@ -22,27 +40,37 @@ public class SoldierCharacter : BaseCharacter
         _playerInterface.UpdateHealth(Health, MaxHealth);
     }
 
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            disableCombatMechanics = true;
+        }
+    }
+
     public void Fire()
     {
-        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf)
+        if(Ammo > 0 && !FireDisabled && !disableCombatMechanics && characterMesh.activeSelf && GameManager.gameInProgress)
         {
             SpawnManagerRef.SpawnProjectile(ProjectilePrefab, SpawnPos.position, Vector3.zero, ProjectileMovementSpeed, false, ProjectileDuration, ProjectileDamage);
             Ammo--;
             StartCoroutine(FireCooldown());
             CharacterAnimator.SetTrigger("fire");
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
+            GameManager.soundSystem.PlaySound(fireSound);
         }
     }
 
     public void Reload()
     {
-        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf)
+        if(!IsReloading && !FireDisabled && Ammo < MaxAmmo && !disableCombatMechanics && characterMesh.activeSelf && GameManager.gameInProgress)
         {
             CharacterAnimator.SetTrigger("reload");
             Ammo = 0;
             IsReloading = true;
             StartCoroutine(ReloadDelay());
             _playerInterface.UpdateAmmo(Ammo, MaxAmmo);
+            GameManager.soundSystem.PlaySound(reloadSound);
         }
     }
 
@@ -63,7 +91,9 @@ public class SoldierCharacter : BaseCharacter
 
     public void OnTakeDamage()
     {
+        _playerInterface.UpdateHealth(Health, MaxHealth);
         _playerInterface.UpdateDamageScreen(Health);
+        GameManager.soundSystem.PlaySound(damageSound);
     }
 
     public void OnPlayerDeath()
@@ -72,11 +102,16 @@ public class SoldierCharacter : BaseCharacter
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.EnableCamera(false);
+        GameManager.soundSystem.PlaySound(deathSound);
     }
 
     public void ToggleRifle()
     {
-        if(!disableCombatMechanics)
+        if(!disableCombatMechanics && GameManager.gameInProgress)
+        {
             characterMesh.SetActive(!characterMesh.activeSelf);
+            GameManager.soundSystem.PlaySound(toggleRifleSound);
+        }
+            
     }
 }

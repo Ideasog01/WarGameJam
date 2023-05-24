@@ -45,10 +45,11 @@ public class InputManager : MonoBehaviour
         if(combatScene)
         {
             _soldierCharacter = GameObject.Find("Player").GetComponent<SoldierCharacter>();
-            _playerInterface = this.GetComponent<PlayerInterface>();
-            _gameManager = this.GetComponent<GameManager>();
         }
-        
+
+        _playerInterface = this.GetComponent<PlayerInterface>();
+        _gameManager = this.GetComponent<GameManager>();
+
 
         controls = new PlayerInputSystem();
         InitialiseInput();
@@ -65,8 +66,10 @@ public class InputManager : MonoBehaviour
             controls.Player.ToggleRifle.performed += ctx => _soldierCharacter.ToggleRifle();
             controls.Player.ToggleRifle.performed += ctx => _playerInterface.ToggleMainHUD();
             controls.Player.ToggleObjectiveView.performed += ctx => _playerInterface.DisplayObjectives();
-            controls.Player.Pause.performed += ctx => _gameManager.PauseGame();
         }
+
+        controls.Player.Pause.performed += ctx => _gameManager.PauseGame();
+        controls.Player.Fire.performed += ctx => MouseEntered();
     }
 
     private void OnEnable()
@@ -77,5 +80,14 @@ public class InputManager : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    public void MouseEntered() //Ensures that the mouse is visible with items/letters view when entering the screen window after 'alt + tab'
+    {
+        if(GameManager.isInteracting || !GameManager.gameInProgress)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

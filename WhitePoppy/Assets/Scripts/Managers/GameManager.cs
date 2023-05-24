@@ -10,22 +10,32 @@ public class GameManager : MonoBehaviour
 
     public static InteractItem interactItem;
 
-    public static SoldierCharacter playerController;
+    public static GameObject playerController;
 
     public static ObjectiveManager objectiveManager;
 
+    public static SoundSystem soundSystem;
+
     public static bool gameInProgress = true;
+
+    public static bool isInteracting;
 
     private PlayerInterface playerInterface;
 
     [SerializeField]
     private bool combatScene = true;
 
+    [SerializeField]
+    private Animator endCanvas;
+
     private void Awake()
     {
-        if(combatScene)
+        playerController = GameObject.Find("Player");
+        soundSystem = GameObject.Find("GameManager").GetComponent<SoundSystem>();
+
+        if (combatScene)
         {
-            playerController = GameObject.Find("Player").GetComponent<SoldierCharacter>();
+           
             objectiveManager = this.GetComponent<ObjectiveManager>();
 
             if(playerController == null)
@@ -35,6 +45,9 @@ public class GameManager : MonoBehaviour
         }
 
         playerInterface = this.GetComponent<PlayerInterface>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public static void EnableCamera(bool active)
@@ -44,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetScene()
     {
+        gameInProgress = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -63,27 +77,29 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if(gameInProgress)
+        if(!isInteracting)
         {
-            playerInterface.DisplayPauseMenu(true);
-            gameInProgress = false;
-            Time.timeScale = 0.0f;
-            EnableCamera(false);
-            SoldierCharacter.disableCombatMechanics = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            playerInterface.DisplayPauseMenu(false);
-            gameInProgress = true;
-            Time.timeScale = 1.0f;
-            EnableCamera(true);
-            SoldierCharacter.disableCombatMechanics = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-        }
+            if (gameInProgress)
+            {
+                playerInterface.DisplayPauseMenu(true);
+                gameInProgress = false;
+                Time.timeScale = 0.0f;
+                EnableCamera(false);
+                SoldierCharacter.disableCombatMechanics = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                playerInterface.DisplayPauseMenu(false);
+                gameInProgress = true;
+                Time.timeScale = 1.0f;
+                EnableCamera(true);
+                SoldierCharacter.disableCombatMechanics = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }    
     }
 
     public void ExitGame()
@@ -91,9 +107,15 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void TransitionToEndScreen()
+    {
+        endCanvas.SetTrigger("active");
+        SceneManager.LoadScene(5);
+    }
+
     IEnumerator WaitBeforeSceneTransition()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene((int)levelToLoad);
+        SceneManager.LoadScene(6);
     }
 }

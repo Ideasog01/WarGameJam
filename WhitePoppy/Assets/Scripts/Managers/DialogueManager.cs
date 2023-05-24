@@ -53,6 +53,8 @@ public class DialogueManager : MonoBehaviour
         crossHair.SetActive(false);
         _dialogueTrigger.NPCCamera.SetActive(true);
         GameManager.EnableCamera(false);
+
+        GameManager.isInteracting = true;
     }
 
     public void NewDialogue(Dialogue dialogue)
@@ -81,16 +83,17 @@ public class DialogueManager : MonoBehaviour
     public void DisplayDialogue()
     {
         characterNameText.text = _currentDialogue.CharacterName;
+        StopAllCoroutines();
         StartCoroutine(TypeSentence());
     }
 
     private IEnumerator TypeSentence()
     {
-        dialogueContentText.text = "";
-
         string sentence = _currentDialogue.DialogueContent[_dialogueIndex];
 
-        foreach(char character in sentence.ToCharArray())
+        dialogueContentText.text = "";
+
+        foreach (char character in sentence.ToCharArray())
         {
             dialogueContentText.text += character;
             yield return new WaitForSeconds(0.02f);
@@ -114,6 +117,8 @@ public class DialogueManager : MonoBehaviour
         crossHair.SetActive(true);
 
         _dialogueTrigger = null;
+
+        GameManager.isInteracting = false;
     }
 
     public void DisplayChoices()

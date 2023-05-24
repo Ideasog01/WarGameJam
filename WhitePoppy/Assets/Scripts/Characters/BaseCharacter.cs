@@ -143,8 +143,7 @@ public class BaseCharacter : MonoBehaviour
         _health -= amount;
 
         onTakeDamageEvent.Invoke();
-
-        if(_health <= 0)
+        if (_health <= 0)
         {
             onDeathEvent.Invoke();
         }
