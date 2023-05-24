@@ -13,6 +13,9 @@ scopes = {
 	"last_search.9824D059" = ""
 	"OpenInspectorPreview.9824D059" = "0"
 	"currentGroup.9824D059" = "all"
+	"last_search.7788661B" = "t:Material"
+	"OpenInspectorPreview.7788661B" = "0"
+	"currentGroup.7788661B" = "asset"
 }
 providers = {
 	adb = {
@@ -59,6 +62,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"t:Material"
 ]
 searchItemFavorites = [
 ]

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:WhitePoppy/Assets/Audio/203255__metrostock99__old-army-radio-static.wav.meta
 guid: b4765188b81bf44409c3a11dc8da0a4a
+========
+guid: 14520eb42031c8e4e97c5def7cb047b2
+>>>>>>>> 2ndUpdate:WhitePoppy/Assets/Audio/400501__griffon_designs__hd-bombing-flyby.aiff.meta
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
