@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemEnabled: 1
+  isHouseItem: 0
   levelToLoadByItem: 0
   isObjectiveAndIsActive: 0
   dialogueInteractions:
@@ -274,6 +275,13 @@ MonoBehaviour:
     LensShift: {x: 0, y: 0}
     GateFit: 2
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -294,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 08960da0fca1f3145b2f70b01ee09656, type: 2}
+    - target: {fileID: 4167662248238669402, guid: 6318a03f0029ca347ab9a056fa3d8e1d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 994ed9ffef4eaf842821869efe079e5c, type: 2}
     - target: {fileID: 7388800709006519016, guid: 6318a03f0029ca347ab9a056fa3d8e1d, type: 3}
       propertyPath: m_Name
       value: WW1_Soldier_1_Skin Variant (1)
